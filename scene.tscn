@@ -1,6 +1,21 @@
 [gd_scene format=3 uid="uid://5fia23w08g54"]
 
 [ext_resource type="Texture2D" uid="uid://c6ehtlqqyxeqn" path="res://icon.svg" id="1_ulcgi"]
+[ext_resource type="Script" uid="uid://qojlbjvpnxv4" path="res://camera.gd" id="2_nxogm"]
+
+[sub_resource type="GDScript" id="GDScript_3253y"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxogm"]
 size = Vector2(128, 128)
@@ -8,6 +23,7 @@ size = Vector2(128, 128)
 [node name="Scene" type="Node2D" unique_id=197350044]
 
 [node name="Player" type="Node2D" parent="." unique_id=860782748]
+script = SubResource("GDScript_3253y")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1177275147]
 texture = ExtResource("1_ulcgi")
@@ -19,3 +35,4 @@ shape = SubResource("RectangleShape2D_nxogm")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1090498527]
 position = Vector2(640, 360)
+script = ExtResource("2_nxogm")
