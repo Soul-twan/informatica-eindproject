@@ -5,7 +5,7 @@ var acceleration  = 1.06
 var moving = false
 
 func _ready() -> void:
-	position = Vector2(400,400)
+	position = Vector2(600,520)
 	
 
 func _process(delta: float) -> void:
