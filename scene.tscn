@@ -26,6 +26,7 @@ sources/0 = SubResource("TileSetAtlasSource_nxogm")
 [node name="Scene" type="Node2D" unique_id=197350044]
 
 [node name="Player" type="Node2D" parent="." unique_id=860782748]
+position = Vector2(600.00006, 519.00006)
 scale = Vector2(5, 5)
 script = ExtResource("1_nxogm")
 
