@@ -8,4 +8,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Input.is_key_pressed(KEY_A):
+		position += Vector2(-400,0) * delta
+	if Input.is_key_pressed(KEY_D):
+		position += Vector2(400,0) * delta
+	if Input.is_key_pressed(KEY_S):
+		position += Vector2(0, 400) * delta
+	if Input.is_key_pressed(KEY_W):
+		position += Vector2(0, -400) * delta
