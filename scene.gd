@@ -2,11 +2,13 @@ extends Node2D
 
 var timer
 var timerHUD
+var player
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	timer = get_node("Timer")
 	timerHUD = get_node("Camera/TimerHUD")
+	player = get_node("Player")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -15,5 +17,12 @@ func _process(_delta: float) -> void:
 	timerHUD.set_text(str(remainingTime))
 
 func _on_timer_timeout() -> void:
-	print("timer")
+	save()
 	get_tree().reload_current_scene()
+
+func save():
+	var saveFile = FileAccess.open("user://save.txt", FileAccess.WRITE)
+	var jsonString = JSON.stringify(player.inventory)
+		
+	saveFile.store_line(jsonString)
+	saveFile.close()
