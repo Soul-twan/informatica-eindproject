@@ -30,7 +30,7 @@ sources/0 = SubResource("TileSetAtlasSource_nxogm")
 [sub_resource type="Theme" id="Theme_u3cyc"]
 default_font_size = 48
 
-[node name="Game" type="Node2D" unique_id=197350044]
+[node name="Scene" type="Node2D" unique_id=197350044]
 script = ExtResource("1_u3cyc")
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=228986726]
