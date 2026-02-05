@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dfxoiqxrmt6ow" path="res://Placeholders/Placeholder tile sheet.png" id="2_nxogm"]
 [ext_resource type="Script" uid="uid://qojlbjvpnxv4" path="res://camera.gd" id="3_3253y"]
 [ext_resource type="Texture2D" uid="uid://chqmh24vlxw44" path="res://hud_heartFull.png" id="5_m7jmp"]
+[ext_resource type="Script" uid="uid://bnumdnfujkb0i" path="res://Item.gd" id="6_y2354"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u3cyc"]
 load_path = "res://.godot/imported/Placeholder tile sheet.png-d50c862496e1d01d0a606229e7aa0a70.ctex"
@@ -48,6 +49,15 @@ func _process(delta: float) -> void:
 	pass
 "
 
+[sub_resource type="Theme" id="Theme_y2354"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7jmp"]
+radius = 14.799998
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7jmp"]
+atlas = ExtResource("2_nxogm")
+region = Rect2(32, 16, 16, 16)
+
 [node name="Scene" type="Node2D" unique_id=197350044]
 script = ExtResource("1_u3cyc")
 
@@ -56,7 +66,7 @@ position = Vector2(600, 520)
 scale = Vector2(5, 5)
 script = ExtResource("1_nxogm")
 
-[node name="Player sprite" type="Sprite2D" parent="Player" unique_id=1177275147]
+[node name="PlayerSprite" type="Sprite2D" parent="Player" unique_id=1177275147]
 texture_filter = 1
 texture = SubResource("CompressedTexture2D_u3cyc")
 region_enabled = true
@@ -99,7 +109,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HealthHUD" type="Label" parent="Camera" unique_id=884193848]
-visible = false
 offset_left = -400.0
 offset_top = -360.0
 offset_right = -360.0
@@ -138,8 +147,36 @@ layout_mode = 2
 texture = ExtResource("5_m7jmp")
 expand_mode = 2
 
+[node name="PickupHUD" type="Label" parent="Camera" unique_id=1314588450]
+visible = false
+offset_left = -640.0
+offset_top = 280.0001
+offset_right = 640.0001
+offset_bottom = 360.0001
+theme = SubResource("Theme_y2354")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "press \"e\" to pick up"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Timer" type="Timer" parent="." unique_id=842476024]
 wait_time = 300.0
 autostart = true
 
+[node name="Items" type="Area2D" parent="." unique_id=1267915284]
+position = Vector2(40, 520.00006)
+scale = Vector2(5, 5)
+script = ExtResource("6_y2354")
+
+[node name="TimeCrystalPickup" type="CollisionShape2D" parent="Items" unique_id=1688606572]
+scale = Vector2(0.9999998, 0.9999998)
+shape = SubResource("CircleShape2D_m7jmp")
+
+[node name="TimeCrystalSprite" type="Sprite2D" parent="Items/TimeCrystalPickup" unique_id=1478655606]
+texture_filter = 1
+texture = SubResource("AtlasTexture_m7jmp")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_shape_entered" from="Items" to="Items" method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="Items" to="Items" method="_on_body_shape_exited"]
