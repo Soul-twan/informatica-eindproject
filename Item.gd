@@ -11,8 +11,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	var item = self.name
+	if self.visible and self.name in player.inventory and player.inventory[item] == 1:
+		self.visible = false
+		
 	if inRange:
-		var item = self.name
 		if Input.is_action_just_pressed("ui_pickup"):
 			if item == "TimeCrystal":
 				get_tree().change_scene_to_file('res://win.tscn')
