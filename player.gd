@@ -56,13 +56,16 @@ func damage():
 		invincTimer.start()
 		if health > 0:
 			health -= 1
-			update_heart()
+			remove_heart()
 		
 func _on_invincibility_timer_timeout() -> void:
 	invincibility = false
 
-func update_heart():
+func remove_heart():
 	hearts[health].texture = emptyHeart
+	
+func add_heart():
+	hearts[health - 1].texture = fullHeart
 	
 func loadSave():
 	if FileAccess.file_exists("user://save.txt"):
@@ -74,3 +77,11 @@ func loadSave():
 		
 		for thing in inventory:
 			inventory[thing] = int(inventory[thing])
+
+
+func _on_healing_pad_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+		var healingPad = get_node("../HealingPad")
+		if body.has_node("PlayerSprite") and healingPad.visible and health != 5:
+			health += 1 
+			healingPad.visible = false
+			add_heart()

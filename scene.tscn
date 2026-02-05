@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://chqmh24vlxw44" path="res://hud_heartFull.png" id="5_m7jmp"]
 [ext_resource type="Script" uid="uid://bnumdnfujkb0i" path="res://Item.gd" id="6_y2354"]
 [ext_resource type="Texture2D" uid="uid://dfu2esx7r2ii1" path="res://spikes.png" id="7_ni31j"]
+[ext_resource type="Texture2D" uid="uid://c6ehtlqqyxeqn" path="res://icon.svg" id="9_5juve"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u3cyc"]
 load_path = "res://.godot/imported/Placeholder tile sheet.png-d50c862496e1d01d0a606229e7aa0a70.ctex"
@@ -65,6 +66,25 @@ radius = 14.999998
 [sub_resource type="AtlasTexture" id="AtlasTexture_ni31j"]
 atlas = ExtResource("2_nxogm")
 region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="GDScript" id="GDScript_xlvrw"]
+script/source = "extends Area2D
+
+signal healed
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fy5k1"]
+size = Vector2(69, 67.5)
 
 [node name="Scene" type="Node2D" unique_id=197350044]
 script = ExtResource("1_u3cyc")
@@ -204,12 +224,24 @@ texture = SubResource("AtlasTexture_ni31j")
 
 [node name="SpikeTest" type="StaticBody2D" parent="." unique_id=347143760 groups=["spikes"]]
 
-[node name="Sprite2D" type="Sprite2D" parent="SpikeTest" unique_id=1734040002]
+[node name="SpikeSprite" type="Sprite2D" parent="SpikeTest" unique_id=1734040002]
 position = Vector2(281, 525)
 texture = ExtResource("7_ni31j")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SpikeTest" unique_id=1575403105]
+[node name="SpikeCollision" type="CollisionPolygon2D" parent="SpikeTest" unique_id=1575403105]
 polygon = PackedVector2Array(246, 560, 257, 525, 269, 559, 281, 526, 292, 560, 304, 526, 316, 560)
+
+[node name="HealingPad" type="Area2D" parent="." unique_id=2054780440]
+script = SubResource("GDScript_xlvrw")
+
+[node name="HealingPadCollision" type="CollisionShape2D" parent="HealingPad" unique_id=1788340221]
+position = Vector2(1162.5, 524.25)
+shape = SubResource("RectangleShape2D_fy5k1")
+
+[node name="HealingPadSprite" type="Sprite2D" parent="HealingPad" unique_id=1163746244]
+position = Vector2(1163, 524)
+scale = Vector2(0.56382495, 0.5552431)
+texture = ExtResource("9_5juve")
 
 [connection signal="timeout" from="Player/InvincibilityTimer" to="Player" method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
@@ -217,3 +249,4 @@ polygon = PackedVector2Array(246, 560, 257, 525, 269, 559, 281, 526, 292, 560, 3
 [connection signal="body_shape_exited" from="TimeCrystal" to="TimeCrystal" method="_on_body_shape_exited"]
 [connection signal="body_shape_entered" from="ExampleItem" to="ExampleItem" method="_on_body_shape_entered"]
 [connection signal="body_shape_exited" from="ExampleItem" to="ExampleItem" method="_on_body_shape_exited"]
+[connection signal="body_shape_entered" from="HealingPad" to="Player" method="_on_healing_pad_body_shape_entered"]
