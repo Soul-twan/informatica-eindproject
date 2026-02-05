@@ -7,6 +7,7 @@ const jump_power = -600.0
 
 var hearts : Array[TextureRect]
 var health = 5
+var invincibility = false
 
 const fullHeart = preload("res://hud_heartFull.png")
 const emptyHeart = preload("res://hud_heartEmpty.png")
@@ -14,10 +15,13 @@ const emptyHeart = preload("res://hud_heartEmpty.png")
 var inventory = {
 }
 
+@onready var invincTimer = $InvincibilityTimer
+
 func _ready() -> void:
 	var heartsBox = $"../Camera/HealthHUD/HBoxContainer"
 	for child in heartsBox.get_children():
 		hearts.append(child)
+		
 	loadSave()
 
 func _physics_process(delta: float) -> void:
@@ -38,21 +42,28 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, fric)
 
 	move_and_slide()
-	for i in get_slide_collision_count():
+	
+	for i in range(get_slide_collision_count()):
 		var collision = get_slide_collision(i)
-		if collision.get_collider().type() == StaticBody2D:	
-			print("I just collided with ", collision.get_collider().name())
-
+		if collision.get_collider().is_in_group("spikes"):
+			damage()
+	
 func damage():
-	if health > 0:
-		health -= 1
-		update_heart()
+	if invincibility:
+		return
+	else:
+		invincibility = true
+		invincTimer.start()
+		if health > 0:
+			health -= 1
+			update_heart()
 		
+func _on_invincibility_timer_timeout() -> void:
+	invincibility = false
+
 func update_heart():
 	hearts[health].texture = emptyHeart
 	
-	
- 
 func loadSave():
 	if FileAccess.file_exists("user://save.txt"):
 		var saveFile = FileAccess.open("user://save.txt", FileAccess.READ)
