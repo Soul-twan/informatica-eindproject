@@ -12,6 +12,8 @@ const fullHeart = preload("res://hud_heartFull.png")
 const emptyHeart = preload("res://hud_heartEmpty.png")
 
 var inventory = {
+	"TimeCrystal": 0,
+	"ExampleItem": 1
 }
 
 func _ready() -> void:

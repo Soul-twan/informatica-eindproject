@@ -1,22 +1,34 @@
 extends Area2D
 
 var pickupHUD
+var player
+var inRange = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pickupHUD =  get_node("../Camera/PickupHUD")
-
+	player = get_node("../Player")
+	if player.inventory[self.name] == 1:
+		self.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if inRange:
+		var item = self.name
+		if Input.is_action_just_pressed("ui_pickup"):
+			if item == "TimeCrystal":
+				get_tree().change_scene_to_file('res://win.tscn')
+			else:
+				player.inventory[item] = 1
+				pickupHUD.visible = false
+				self.visible = false
 
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	if body.has_node("PlayerSprite"):
+	if body.has_node("PlayerSprite") and self.visible:
 		pickupHUD.visible = true
-
-#		get_tree().change_scene_to_file('res://win.tscn')
+		inRange = true
 
 func _on_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite"):
 		pickupHUD.visible = false
+		inRange = false

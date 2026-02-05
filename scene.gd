@@ -15,12 +15,17 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	var remainingTime = str(floor(int(timer.get_time_left()) / 60)) + ":" + str((int(timer.get_time_left()) % 60))
+	if player.health == 0:
+		loopReset()
+	
+	var secondsDisplay = int(timer.get_time_left()) % 60
+	if secondsDisplay < 10:
+		secondsDisplay = "0" + str(secondsDisplay)
+	var remainingTime = str(floor(int(timer.get_time_left()) / 60)) + ":" + str(secondsDisplay)
 	timerHUD.set_text(str(remainingTime))
 
 func _on_timer_timeout() -> void:
-	save()
-	get_tree().reload_current_scene()
+	loopReset()
 
 func save():
 	var saveFile = FileAccess.open("user://save.txt", FileAccess.WRITE)
@@ -28,3 +33,7 @@ func save():
 		
 	saveFile.store_line(jsonString)
 	saveFile.close()
+
+func loopReset():
+	save()
+	get_tree().reload_current_scene()

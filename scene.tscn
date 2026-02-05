@@ -58,6 +58,13 @@ radius = 14.799998
 atlas = ExtResource("2_nxogm")
 region = Rect2(32, 16, 16, 16)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_y2354"]
+radius = 14.999998
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ni31j"]
+atlas = ExtResource("2_nxogm")
+region = Rect2(0, 32, 16, 16)
+
 [node name="Scene" type="Node2D" unique_id=197350044]
 script = ExtResource("1_u3cyc")
 
@@ -67,6 +74,7 @@ scale = Vector2(5, 5)
 script = ExtResource("1_nxogm")
 
 [node name="PlayerSprite" type="Sprite2D" parent="Player" unique_id=1177275147]
+z_index = 1
 texture_filter = 1
 texture = SubResource("CompressedTexture2D_u3cyc")
 region_enabled = true
@@ -74,6 +82,15 @@ region_rect = Rect2(0, 0, 16, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=373865746]
 scale = Vector2(0.99999976, 0.99999976)
+shape = SubResource("RectangleShape2D_m7jmp")
+
+[node name="Area2D" type="Area2D" parent="Player" unique_id=709951416]
+position = Vector2(-119.99999, -103.99999)
+scale = Vector2(0.19999999, 0.19999999)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D" unique_id=1093078044]
+position = Vector2(599.99994, 519.99994)
+scale = Vector2(4.999999, 4.999999)
 shape = SubResource("RectangleShape2D_m7jmp")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1055878315]
@@ -164,19 +181,33 @@ vertical_alignment = 1
 wait_time = 300.0
 autostart = true
 
-[node name="Items" type="Area2D" parent="." unique_id=1267915284]
+[node name="TimeCrystal" type="Area2D" parent="." unique_id=1267915284]
 position = Vector2(40, 520.00006)
 scale = Vector2(5, 5)
 script = ExtResource("6_y2354")
 
-[node name="TimeCrystalPickup" type="CollisionShape2D" parent="Items" unique_id=1688606572]
-scale = Vector2(0.9999998, 0.9999998)
+[node name="TimeCrystalCollision" type="CollisionShape2D" parent="TimeCrystal" unique_id=1688606572]
+scale = Vector2(0.99999976, 0.99999976)
 shape = SubResource("CircleShape2D_m7jmp")
 
-[node name="TimeCrystalSprite" type="Sprite2D" parent="Items/TimeCrystalPickup" unique_id=1478655606]
+[node name="TimeCrystalSprite" type="Sprite2D" parent="TimeCrystal/TimeCrystalCollision" unique_id=1478655606]
 texture_filter = 1
 texture = SubResource("AtlasTexture_m7jmp")
 
+[node name="ExampleItem" type="Area2D" parent="." unique_id=1766280677]
+script = ExtResource("6_y2354")
+
+[node name="ExampleItemCollision" type="CollisionShape2D" parent="ExampleItem" unique_id=1018802755]
+position = Vector2(920.9999, 520)
+scale = Vector2(5, 5)
+shape = SubResource("CircleShape2D_y2354")
+
+[node name="ExampleItemSprite" type="Sprite2D" parent="ExampleItem/ExampleItemCollision" unique_id=1283682981]
+texture_filter = 1
+texture = SubResource("AtlasTexture_ni31j")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="body_shape_entered" from="Items" to="Items" method="_on_body_shape_entered"]
-[connection signal="body_shape_exited" from="Items" to="Items" method="_on_body_shape_exited"]
+[connection signal="body_shape_entered" from="TimeCrystal" to="TimeCrystal" method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="TimeCrystal" to="TimeCrystal" method="_on_body_shape_exited"]
+[connection signal="body_shape_entered" from="ExampleItem" to="ExampleItem" method="_on_body_shape_entered"]
+[connection signal="body_shape_exited" from="ExampleItem" to="ExampleItem" method="_on_body_shape_exited"]
