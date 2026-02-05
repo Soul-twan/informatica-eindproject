@@ -9,8 +9,8 @@ var hearts : Array[TextureRect]
 var health = 5
 var invincibility = false
 
-const fullHeart = preload("res://hud_heartFull.png")
-const emptyHeart = preload("res://hud_heartEmpty.png")
+const fullHeart = preload("res://HUD/heartFull.png")
+const emptyHeart = preload("res://HUD/heartEmpty.png")
 
 var inventory = {
 }
