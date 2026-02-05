@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dfxoiqxrmt6ow" path="res://Placeholders/Placeholder tile sheet.png" id="2_nxogm"]
 [ext_resource type="Script" uid="uid://qojlbjvpnxv4" path="res://camera.gd" id="3_3253y"]
 [ext_resource type="Texture2D" uid="uid://chqmh24vlxw44" path="res://HUD/heartFull.png" id="5_m7jmp"]
+[ext_resource type="Texture2D" uid="uid://ghxnee6qtmct" path="res://HUD/bg.png" id="6_xlvrw"]
 [ext_resource type="Script" uid="uid://bnumdnfujkb0i" path="res://Item.gd" id="6_y2354"]
 [ext_resource type="Texture2D" uid="uid://dfu2esx7r2ii1" path="res://Environment/spikes.png" id="7_ni31j"]
 
@@ -51,6 +52,17 @@ func _process(delta: float) -> void:
 "
 
 [sub_resource type="Theme" id="Theme_y2354"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_73fnb"]
+texture = ExtResource("6_xlvrw")
+0:0/0 = 0
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+0:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_5juve"]
+sources/0 = SubResource("TileSetAtlasSource_73fnb")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7jmp"]
 radius = 14.799998
@@ -118,10 +130,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -80.0
+offset_left = -69.99994
 offset_top = -360.0
-offset_right = 80.0
-offset_bottom = -280.0
+offset_right = 70.00006
+offset_bottom = -289.99997
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_u3cyc")
@@ -183,6 +195,14 @@ theme_override_font_sizes/font_size = 32
 text = "press \"e\" to pick up"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HUDbg" type="TileMapLayer" parent="Camera" unique_id=929509735]
+z_index = 2
+texture_filter = 1
+position = Vector2(0, 40.00003)
+scale = Vector2(5, 5)
+tile_map_data = PackedByteArray("AAD4//v/AAAAAAAAAAD5//v/AAABAAAAAAD6//v/AAABAAAAAAD7//v/AAABAAAAAAD8//v/AAAAAAEAAAD9//v/AAABAAEAAAD+//v/AAAAAAIAAAD///v/AAAAAAAAAAAAAPv/AAAAAAEAAAABAPv/AAABAAEAAAA=")
+tile_set = SubResource("TileSet_5juve")
 
 [node name="Timer" type="Timer" parent="." unique_id=842476024]
 wait_time = 300.0
