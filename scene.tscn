@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dfxoiqxrmt6ow" path="res://Placeholders/Placeholder tile sheet.png" id="2_nxogm"]
 [ext_resource type="Script" uid="uid://qojlbjvpnxv4" path="res://camera.gd" id="3_3253y"]
 [ext_resource type="Texture2D" uid="uid://chqmh24vlxw44" path="res://hud_heartFull.png" id="5_m7jmp"]
+[ext_resource type="Texture2D" uid="uid://dfu2esx7r2ii1" path="res://spikes.png" id="6_y2354"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u3cyc"]
 load_path = "res://.godot/imported/Placeholder tile sheet.png-d50c862496e1d01d0a606229e7aa0a70.ctex"
@@ -22,7 +23,9 @@ texture = ExtResource("2_nxogm")
 0:1/0 = 0
 1:1/0 = 0
 2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_3253y"]
 physics_layer_0/collision_layer = 1
@@ -54,6 +57,7 @@ script = ExtResource("1_u3cyc")
 [node name="Player" type="CharacterBody2D" parent="." unique_id=228986726]
 position = Vector2(600, 520)
 scale = Vector2(5, 5)
+collision_mask = 3
 script = ExtResource("1_nxogm")
 
 [node name="Player sprite" type="Sprite2D" parent="Player" unique_id=1177275147]
@@ -141,5 +145,18 @@ expand_mode = 2
 [node name="Timer" type="Timer" parent="." unique_id=842476024]
 wait_time = 300.0
 autostart = true
+
+[node name="Spikes" type="StaticBody2D" parent="." unique_id=554317264]
+collision_layer = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Spikes" unique_id=628316969]
+position = Vector2(274.00003, 519)
+scale = Vector2(1.1033792, 1.1036445)
+polygon = PackedVector2Array(22.657639, 0, 11.781967, 34.431396, -3.0517578e-05, 0, -11.782013, 34.431396, -23.56401, 0, -35, 35, 35, 35)
+
+[node name="Sprite2D" type="Sprite2D" parent="Spikes" unique_id=377757305]
+position = Vector2(274.00003, 519)
+scale = Vector2(1.1033792, 1.1036445)
+texture = ExtResource("6_y2354")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

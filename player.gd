@@ -28,9 +28,6 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if (Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_accept")) and is_on_floor():
 		velocity.y = jump_power
-		
-		#damages upon jump to test (temporary)
-		damage()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -41,6 +38,10 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, fric)
 
 	move_and_slide()
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider().type() == StaticBody2D:	
+			print("I just collided with ", collision.get_collider().name())
 
 func damage():
 	if health > 0:
@@ -49,6 +50,8 @@ func damage():
 		
 func update_heart():
 	hearts[health].texture = emptyHeart
+	
+	
  
 func loadSave():
 	if FileAccess.file_exists("user://save.txt"):
