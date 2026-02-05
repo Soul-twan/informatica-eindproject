@@ -84,15 +84,6 @@ region_rect = Rect2(0, 0, 16, 16)
 scale = Vector2(0.99999976, 0.99999976)
 shape = SubResource("RectangleShape2D_m7jmp")
 
-[node name="Area2D" type="Area2D" parent="Player" unique_id=709951416]
-position = Vector2(-119.99999, -103.99999)
-scale = Vector2(0.19999999, 0.19999999)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D" unique_id=1093078044]
-position = Vector2(599.99994, 519.99994)
-scale = Vector2(4.999999, 4.999999)
-shape = SubResource("RectangleShape2D_m7jmp")
-
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1055878315]
 z_index = -1
 texture_filter = 1

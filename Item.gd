@@ -8,8 +8,6 @@ var inRange = false
 func _ready() -> void:
 	pickupHUD =  get_node("../Camera/PickupHUD")
 	player = get_node("../Player")
-	if player.inventory[self.name] == 1:
-		self.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
