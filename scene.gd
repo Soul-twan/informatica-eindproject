@@ -9,20 +9,14 @@ func _ready() -> void:
 	timer = get_node("Timer")
 	timerHUD = get_node("Camera/TimerHUD")
 	player = get_node("Player")
-<<<<<<< Updated upstream
 	var healthHUD = get_node("Camera/HealthHUD")
 	healthHUD.visible = true
-=======
->>>>>>> Stashed changes
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	var remainingTime = str(floor(int(timer.get_time_left()) / 60)) + ":" + str((int(timer.get_time_left()) % 60))
 	timerHUD.set_text(str(remainingTime))
-	
-	if Input.is_action_just_pressed("ui_text_backspace"):
-		print("insert test change scene")
 
 func _on_timer_timeout() -> void:
 	save()
