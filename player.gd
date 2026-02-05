@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const max_speed = 400.0
 const acc = 30
-const fric = 60
+const fric = 70
 const jump_power = -600.0
 
 var hearts : Array[TextureRect]
@@ -20,7 +20,6 @@ func _ready() -> void:
 	var heartsBox = $"../Camera/HealthHUD/HBoxContainer"
 	for child in heartsBox.get_children():
 		hearts.append(child)
-
 	loadSave()
 
 func _physics_process(delta: float) -> void:
@@ -53,8 +52,9 @@ func damage():
 		
 func update_heart():
 	hearts[health].texture = emptyHeart
-
-
+	
+	
+ 
 func loadSave():
 	if FileAccess.file_exists("user://save.txt"):
 		var saveFile = FileAccess.open("user://save.txt", FileAccess.READ)

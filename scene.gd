@@ -23,9 +23,6 @@ func _process(_delta: float) -> void:
 		secondsDisplay = "0" + str(secondsDisplay)
 	var remainingTime = str(floor(int(timer.get_time_left()) / 60)) + ":" + str(secondsDisplay)
 	timerHUD.set_text(str(remainingTime))
-	
-	if Input.is_action_just_pressed("ui_text_backspace"):
-		print("insert test change scene")
 
 func _on_timer_timeout() -> void:
 	loopReset()
