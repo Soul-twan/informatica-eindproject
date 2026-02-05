@@ -5,20 +5,25 @@ const acc = 30
 const fric = 60
 const jump_power = -600.0
 
+<<<<<<< Updated upstream
 var hearts : Array[TextureRect]
 var health = 5
 
 const fullHeart = preload("res://hud_heartFull.png")
 const emptyHeart = preload("res://hud_heartEmpty.png")
 
+=======
+>>>>>>> Stashed changes
 var inventory = {
 }
 
 func _ready() -> void:
+<<<<<<< Updated upstream
 	var heartsBox = $"../Camera/HealthHUD/HBoxContainer"
 	for child in heartsBox.get_children():
 		hearts.append(child)
-
+=======
+>>>>>>> Stashed changes
 	loadSave()
 
 func _physics_process(delta: float) -> void:
@@ -39,6 +44,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, fric)
 
 	move_and_slide()
+<<<<<<< Updated upstream
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		if collision.get_collider().type() == StaticBody2D:	
@@ -51,8 +57,15 @@ func damage():
 		
 func update_heart():
 	hearts[health].texture = emptyHeart
+	
+	
+ 
+=======
+<<<<<<< HEAD
+	
+=======
 
-
+>>>>>>> Stashed changes
 func loadSave():
 	if FileAccess.file_exists("user://save.txt"):
 		var saveFile = FileAccess.open("user://save.txt", FileAccess.READ)
@@ -63,3 +76,7 @@ func loadSave():
 		
 		for thing in inventory:
 			inventory[thing] = int(inventory[thing])
+<<<<<<< Updated upstream
+=======
+>>>>>>> 2f650ab86dcc8a0321889f08776c67bd9e21d3ab
+>>>>>>> Stashed changes
