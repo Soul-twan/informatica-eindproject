@@ -9,11 +9,8 @@ func _ready() -> void:
 	timer = get_node("Timer")
 	timerHUD = get_node("Camera/TimerHUD")
 	player = get_node("Player")
-<<<<<<< Updated upstream
 	var healthHUD = get_node("Camera/HealthHUD")
 	healthHUD.visible = true
-=======
->>>>>>> Stashed changes
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
