@@ -32,10 +32,10 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * 2 * delta
 
 	# Handle jump.
-	if (Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_accept")) and is_on_floor():
+	if Input.is_action_just_pressed("ui_jump") and is_on_floor():
 		velocity.y = jump_power
 		
-	if (Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_accept")) and not is_on_floor() and doubleJump:
+	if Input.is_action_just_pressed("ui_jump") and not is_on_floor() and doubleJump:
 		doubleJump = false
 		velocity.y = jump_power
 		
@@ -50,9 +50,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, fric)
 		
-	if Input.is_action_just_pressed("ui_down") and (input > 0):
+	if Input.is_action_just_pressed("ui_dash") and (input > 0):
 		velocity.x += dashSpeed
-	elif Input.is_action_just_pressed("ui_down") and (input < 0):
+	elif Input.is_action_just_pressed("ui_dash") and (input < 0):
 		velocity.x -= dashSpeed
 
 	move_and_slide()
