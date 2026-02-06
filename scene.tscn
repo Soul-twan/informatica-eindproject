@@ -211,7 +211,7 @@ tile_map_data = PackedByteArray("AAD4//v/AAAAAAAAAAD5//v/AAABAAAAAAD6//v/AAABAAA
 tile_set = SubResource("TileSet_5juve")
 
 [node name="Timer" type="Timer" parent="." unique_id=842476024]
-wait_time = 10.0
+wait_time = 300.0
 one_shot = true
 autostart = true
 

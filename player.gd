@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 		doubleJump = false
 		velocity.y = jump_power
 		
-	if is_on_floor():
+	if is_on_floor() and not doubleJump:
 		doubleJump = true
 		
 	# Get the input direction and handle the movement/deceleration.
