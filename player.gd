@@ -5,6 +5,7 @@ const acc = 30
 const fric = 70
 const jump_power = -600.0
 const dashSpeed = 800.0
+var doubleJump = true
 
 var hearts : Array[TextureRect]
 var health = 5
@@ -33,7 +34,14 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if (Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_accept")) and is_on_floor():
 		velocity.y = jump_power
-
+		
+	if (Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("ui_accept")) and not is_on_floor() and doubleJump:
+		doubleJump = false
+		velocity.y = jump_power
+		
+	if is_on_floor():
+		doubleJump = true
+		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
