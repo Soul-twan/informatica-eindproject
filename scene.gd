@@ -11,6 +11,8 @@ func _ready() -> void:
 	player = get_node("Player")
 	var healthHUD = get_node("Camera/HealthHUD")
 	healthHUD.visible = true
+	var HUDbg = get_node("Camera/HUDbg")
+	HUDbg.visible = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
