@@ -4,6 +4,7 @@ const max_speed = 400.0
 const acc = 30
 const fric = 70
 const jump_power = -600.0
+const dashSpeed = 800.0
 
 var hearts : Array[TextureRect]
 var health = 5
@@ -40,6 +41,11 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, input * max_speed, acc)
 	else:
 		velocity.x = move_toward(velocity.x, 0, fric)
+		
+	if Input.is_action_just_pressed("ui_down") and (input > 0):
+		velocity.x += dashSpeed
+	elif Input.is_action_just_pressed("ui_down") and (input < 0):
+		velocity.x -= dashSpeed
 
 	move_and_slide()
 	
@@ -47,6 +53,7 @@ func _physics_process(delta: float) -> void:
 		var collision = get_slide_collision(i)
 		if collision.get_collider().is_in_group("spikes"):
 			damage()
+	
 	
 func damage():
 	if invincibility:
