@@ -127,6 +127,8 @@ shape = SubResource("RectangleShape2D_m7jmp")
 [node name="InvincibilityTimer" type="Timer" parent="Player" unique_id=1709823882]
 one_shot = true
 
+[node name="DashTimer" type="Timer" parent="Player" unique_id=1724591620]
+
 [node name="Environment" type="TileMapLayer" parent="." unique_id=1055878315]
 z_index = -1
 texture_filter = 1
@@ -283,6 +285,7 @@ scale = Vector2(5, 5)
 texture = ExtResource("11_fy5k1")
 
 [connection signal="timeout" from="Player/InvincibilityTimer" to="Player" method="_on_invincibility_timer_timeout"]
+[connection signal="timeout" from="Player/DashTimer" to="Player" method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_shape_entered" from="TimeCrystal" to="TimeCrystal" method="_on_body_shape_entered"]
 [connection signal="body_shape_exited" from="TimeCrystal" to="TimeCrystal" method="_on_body_shape_exited"]

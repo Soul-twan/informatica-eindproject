@@ -5,7 +5,9 @@ const acc = 30
 const fric = 70
 const jump_power = -600.0
 const dashSpeed = 800.0
+
 var doubleJump = true
+var dashReady = true
 
 var hearts : Array[TextureRect]
 var health = 5
@@ -18,6 +20,7 @@ var inventory = {
 }
 
 @onready var invincTimer = $InvincibilityTimer
+@onready var dashTimer = $DashTimer
 
 func _ready() -> void:
 	var heartsBox = $"../Camera/HealthHUD/HBoxContainer"
@@ -50,10 +53,14 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, fric)
 		
-	if Input.is_action_just_pressed("ui_dash") and (input > 0):
+	if Input.is_action_just_pressed("ui_dash") and (input > 0) and dashReady:
 		velocity.x += dashSpeed
-	elif Input.is_action_just_pressed("ui_dash") and (input < 0):
+		dashReady = false
+		dashTimer.start()
+	elif Input.is_action_just_pressed("ui_dash") and (input < 0) and dashReady:
 		velocity.x -= dashSpeed
+		dashReady = false
+		dashTimer.start()
 
 	move_and_slide()
 	
@@ -62,6 +69,9 @@ func _physics_process(delta: float) -> void:
 		if collision.get_collider().is_in_group("spikes"):
 			damage()
 	
+func _on_dash_timer_timeout() -> void:
+	dashReady = true
+
 	
 func damage():
 	if invincibility:
