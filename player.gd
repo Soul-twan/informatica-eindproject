@@ -132,3 +132,10 @@ func animation() -> void:
 				animate.play("IdleRight")
 			"left":
 				animate.play("IdleLeft")
+	# walk
+	if is_on_floor() and velocity != Vector2(0, 0):
+		match latestDirection:
+			"right":
+				animate.play("WalkRight")
+			"left":
+				animate.play("WalkLeft")
