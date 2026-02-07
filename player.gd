@@ -14,6 +14,8 @@ var hearts : Array[TextureRect]
 var health = 5
 var invincibility = false
 
+var latestDirection = "right"
+
 const fullHeart = preload("res://HUD/heartFull.png")
 const emptyHeart = preload("res://HUD/heartEmpty.png")
 
@@ -23,6 +25,7 @@ var inventory = {
 @onready var invincTimer = $InvincibilityTimer
 @onready var dashTimer = $DashTimer
 @onready var nearWallChecker = $NearWallCheck
+@onready var animate = $AnimationPlayer
 
 func _ready() -> void:
 	var heartsBox = $"../Camera/HealthHUD/HBoxContainer"
@@ -54,6 +57,10 @@ func _physics_process(delta: float) -> void:
 		
 	if input:
 		velocity.x = move_toward(velocity.x, input * max_speed, acc)
+		if input > 0:
+			latestDirection = "right"
+		elif input < 0:
+			latestDirection = "left"
 	else:
 		velocity.x = move_toward(velocity.x, 0, fric)
 		
@@ -65,6 +72,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x -= dashSpeed
 		dashReady = false
 		dashTimer.start()
+		
+	animation()
 
 	move_and_slide()
 	
@@ -114,3 +123,12 @@ func _on_healing_pad_body_shape_entered(body_rid: RID, body: Node2D, body_shape_
 			health += 1 
 			healingPad.visible = false
 			add_heart()
+			
+func animation() -> void:
+	# idle
+	if is_on_floor() and velocity == Vector2(0, 0):
+		match latestDirection:
+			"right":
+				animate.play("IdleRight")
+			"left":
+				animate.play("IdleLeft")
