@@ -141,6 +141,7 @@ script = ExtResource("1_u3cyc")
 [node name="Player" type="CharacterBody2D" parent="." unique_id=228986726]
 position = Vector2(600, 520)
 scale = Vector2(5, 5)
+collision_mask = 3
 script = ExtResource("1_nxogm")
 
 [node name="PlayerSprite" type="Sprite2D" parent="Player" unique_id=1177275147]
@@ -158,6 +159,10 @@ shape = SubResource("RectangleShape2D_m7jmp")
 one_shot = true
 
 [node name="DashTimer" type="Timer" parent="Player" unique_id=1724591620]
+
+[node name="NearWallCheck" type="RayCast2D" parent="Player" unique_id=882181560]
+rotation = -1.5707964
+target_position = Vector2(0, 10)
 
 [node name="Environment" type="TileMapLayer" parent="." unique_id=1055878315]
 z_index = -1

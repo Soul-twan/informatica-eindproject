@@ -3,8 +3,9 @@ extends CharacterBody2D
 const max_speed = 400.0
 const acc = 30
 const fric = 70
-const jump_power = -600.0
+const jump_power = -630.0
 const dashSpeed = 800.0
+const wallJumpHorizontal = 800
 
 var doubleJump = true
 var dashReady = true
@@ -21,6 +22,7 @@ var inventory = {
 
 @onready var invincTimer = $InvincibilityTimer
 @onready var dashTimer = $DashTimer
+@onready var nearWallChecker = $NearWallCheck
 
 func _ready() -> void:
 	var heartsBox = $"../Camera/HealthHUD/HBoxContainer"
@@ -30,7 +32,8 @@ func _ready() -> void:
 	loadSave()
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	var input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	
 	if not is_on_floor():
 		velocity += get_gravity() * 2 * delta
 
@@ -38,26 +41,27 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_jump") and is_on_floor():
 		velocity.y = jump_power
 		
-	if Input.is_action_just_pressed("ui_jump") and not is_on_floor() and doubleJump:
+	if Input.is_action_just_pressed("ui_jump") and not is_on_floor() and doubleJump and not nearWallChecker.is_colliding():
 		doubleJump = false
 		velocity.y = jump_power
+		
+	if Input.is_action_just_pressed("ui_jump") and not is_on_floor() and nearWallChecker.is_colliding():
+		velocity.y = jump_power
+		velocity.x = -wallJumpHorizontal
 		
 	if is_on_floor() and not doubleJump:
 		doubleJump = true
 		
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	if input:
 		velocity.x = move_toward(velocity.x, input * max_speed, acc)
 	else:
 		velocity.x = move_toward(velocity.x, 0, fric)
 		
-	if Input.is_action_just_pressed("ui_dash") and (input > 0) and dashReady:
+	if (Input.is_action_just_pressed("ui_dash") or Input.is_action_just_pressed("ui_dash2")) and (input > 0) and dashReady:
 		velocity.x += dashSpeed
 		dashReady = false
 		dashTimer.start()
-	elif Input.is_action_just_pressed("ui_dash") and (input < 0) and dashReady:
+	elif (Input.is_action_just_pressed("ui_dash") or Input.is_action_just_pressed("ui_dash2")) and (input < 0) and dashReady:
 		velocity.x -= dashSpeed
 		dashReady = false
 		dashTimer.start()
