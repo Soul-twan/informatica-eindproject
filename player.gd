@@ -52,10 +52,10 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_power
 		velocity.x = wallJumpHorizontal
 		
-	if $AnimationPlayer.current_animation == "WalkRight":
+	if latestDirection == "right":
 		nearWallChecker.rotation = -90
 		wallJumpHorizontal = -800
-	elif $AnimationPlayer.current_animation == "WalkLeft":
+	elif latestDirection == "left":
 		nearWallChecker.rotation = 90
 		wallJumpHorizontal = 800
 		
@@ -140,7 +140,7 @@ func animation() -> void:
 			"left":
 				animate.play("IdleLeft")
 	# walk
-	if velocity != Vector2(0, 0):
+	if is_on_floor and velocity != Vector2(0, 0):
 		match latestDirection:
 			"right":
 				animate.play("WalkRight")
