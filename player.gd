@@ -5,8 +5,8 @@ const acc = 30
 const fric = 70
 const jump_power = -630.0
 const dashSpeed = 800.0
-const wallJumpHorizontal = 800
 
+var wallJumpHorizontal = 800
 var doubleJump = true
 var dashReady = true
 
@@ -50,7 +50,14 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("ui_jump") and not is_on_floor() and nearWallChecker.is_colliding():
 		velocity.y = jump_power
-		velocity.x = -wallJumpHorizontal
+		velocity.x = wallJumpHorizontal
+		
+	if $AnimationPlayer.current_animation == "WalkRight":
+		nearWallChecker.rotation = -90
+		wallJumpHorizontal = -800
+	elif $AnimationPlayer.current_animation == "WalkLeft":
+		nearWallChecker.rotation = 90
+		wallJumpHorizontal = 800
 		
 	if is_on_floor() and not doubleJump:
 		doubleJump = true
@@ -133,7 +140,7 @@ func animation() -> void:
 			"left":
 				animate.play("IdleLeft")
 	# walk
-	if is_on_floor() and velocity != Vector2(0, 0):
+	if velocity != Vector2(0, 0):
 		match latestDirection:
 			"right":
 				animate.play("WalkRight")
