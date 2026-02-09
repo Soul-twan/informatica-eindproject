@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 const max_speed = 400.0
-const acc = 30
-const fric = 70
+const acc = 40
+const fric = 80
 const jump_power = -630.0
 const dashSpeed = 800.0
 
@@ -13,6 +13,8 @@ var dashReady = true
 var hearts : Array[TextureRect]
 var health = 5
 var invincibility = false
+var input
+
 
 var latestDirection = "right"
 
@@ -35,7 +37,7 @@ func _ready() -> void:
 	loadSave()
 
 func _physics_process(delta: float) -> void:
-	var input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	
 	if not is_on_floor():
 		velocity += get_gravity() * 2 * delta
@@ -133,14 +135,14 @@ func _on_healing_pad_body_shape_entered(body_rid: RID, body: Node2D, body_shape_
 			
 func animation() -> void:
 	# idle
-	if is_on_floor() and velocity == Vector2(0, 0):
+	if is_on_floor() and velocity == Vector2(0, 0) and input == 0:
 		match latestDirection:
 			"right":
 				animate.play("IdleRight")
 			"left":
 				animate.play("IdleLeft")
 	# walk
-	if is_on_floor and velocity != Vector2(0, 0):
+	if is_on_floor() and velocity != Vector2(0, 0):
 		match latestDirection:
 			"right":
 				animate.play("WalkRight")

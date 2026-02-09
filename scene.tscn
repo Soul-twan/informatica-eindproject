@@ -482,10 +482,12 @@ shape = SubResource("RectangleShape2D_m7jmp")
 one_shot = true
 
 [node name="DashTimer" type="Timer" parent="Player" unique_id=1724591620]
+wait_time = 0.6
 
 [node name="NearWallCheck" type="RayCast2D" parent="Player" unique_id=882181560]
-rotation = 1.5707964
-target_position = Vector2(0, 10)
+position = Vector2(0, 3)
+rotation = -1.5707964
+target_position = Vector2(0, 8.4)
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Player" unique_id=1259796154]
 texture_filter = 1
