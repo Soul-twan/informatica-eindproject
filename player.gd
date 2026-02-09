@@ -46,13 +46,13 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_jump") and is_on_floor():
 		velocity.y = jump_power
 		
-	if Input.is_action_just_pressed("ui_jump") and not is_on_floor() and doubleJump and not nearWallChecker.is_colliding():
+	if Input.is_action_just_pressed("ui_jump") and not is_on_floor() and nearWallChecker.is_colliding() and input != 0:
+		velocity.y = jump_power
+		velocity.x = wallJumpHorizontal
+	elif Input.is_action_just_pressed("ui_jump") and not is_on_floor() and doubleJump:
 		doubleJump = false
 		velocity.y = jump_power
 		
-	if Input.is_action_just_pressed("ui_jump") and not is_on_floor() and nearWallChecker.is_colliding():
-		velocity.y = jump_power
-		velocity.x = wallJumpHorizontal
 		
 	if latestDirection == "right":
 		nearWallChecker.rotation = -90
