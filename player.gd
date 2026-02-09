@@ -130,7 +130,7 @@ func loadSave():
 			inventory[thing] = int(inventory[thing])
 
 
-func _on_healing_pad_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_healing_pad_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 		var healingPad = get_node("../HealingPad")
 		if body.has_node("PlayerSprite") and healingPad.visible and health != 5:
 			health += 1 
@@ -138,6 +138,7 @@ func _on_healing_pad_body_shape_entered(body_rid: RID, body: Node2D, body_shape_
 			add_heart()
 			
 func animation() -> void:
+	var jumpAnimation
 	# idle
 	if is_on_floor() and velocity == Vector2(0, 0) and input == 0:
 		match latestDirection:
@@ -145,6 +146,7 @@ func animation() -> void:
 				animate.play("IdleRight")
 			"left":
 				animate.play("IdleLeft")
+				
 	# walk
 	if is_on_floor() and velocity != Vector2(0, 0):
 		match latestDirection:
@@ -153,8 +155,10 @@ func animation() -> void:
 			"left":
 				animate.play("WalkLeft")
 	
+	# jump
 	if floorJumped:
 		if input == 0:
+			jumpAnimation = true
 			match latestDirection:
 				"right":
 					animate.play("JumpMiddleRight")
@@ -166,17 +170,27 @@ func animation() -> void:
 					animate.play("JumpRight")
 				"left":
 					animate.play("JumpLeft")
-	
+
+	# fall
 	if !is_on_floor() and velocity.y > 0:
 		match latestDirection:
 			"right":
 				animate.play("FallingRight")
 			"left":
 				animate.play("FallingLeft")
-				
-	if !is_on_floor() and velocity.y < 0 and animate.current_animation != "JumpRight" and animate.current_animation != "JumpLeft" and animate.current_animation != "JumpMiddleLeft" and animate.current_animation != "JumpMiddleRight":
+
+	# float
+	if !is_on_floor() and velocity.y < 0 and !jumpAnimation and animate.current_animation != "JumpRight" and animate.current_animation != "JumpLeft" and animate.current_animation != "JumpMiddleLeft" and animate.current_animation != "JumpMiddleRight":
 		match latestDirection:
 			"right":
 				animate.play("FloatingRight")
 			"left":
 				animate.play("FloatingLeft")
+	
+	# wall cling
+	if input != 0 and nearWallChecker.is_colliding() and !is_on_floor():
+		match latestDirection:
+			"right":
+				animate.play("WallRight")
+			"left":
+				animate.play("WallLeft")

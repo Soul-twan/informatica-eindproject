@@ -16,7 +16,7 @@ func _ready() -> void:
 		self.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	item = self.name
 
 	if inRange:
@@ -29,13 +29,13 @@ func _process(delta: float) -> void:
 				textBg.visible = false
 				self.visible = false
 
-func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite") and self.visible:
 		pickupHUD.visible = true
 		textBg.visible = true
 		inRange = true
 
-func _on_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_body_shape_exited(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite"):
 		pickupHUD.visible = false
 		textBg.visible = false

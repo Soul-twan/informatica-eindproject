@@ -23,7 +23,7 @@ func _process(_delta: float) -> void:
 	var secondsDisplay = int(timer.get_time_left()) % 60
 	if secondsDisplay < 10:
 		secondsDisplay = "0" + str(secondsDisplay)
-	var remainingTime = str(floor(int(timer.get_time_left()) / 60)) + ":" + str(secondsDisplay)
+	var remainingTime = str(floor(int(timer.get_time_left() / 60))) + ":" + str(secondsDisplay)
 	timerHUD.set_text(str(remainingTime))
 
 func _on_timer_timeout() -> void:
