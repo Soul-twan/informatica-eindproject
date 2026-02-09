@@ -17,6 +17,7 @@ var input
 
 
 var latestDirection = "right"
+var floorJumped = false
 
 const fullHeart = preload("res://HUD/heartFull.png")
 const emptyHeart = preload("res://HUD/heartEmpty.png")
@@ -42,16 +43,19 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * 2 * delta
 
+	floorJumped = false
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_jump") and is_on_floor():
 		velocity.y = jump_power
-		
+		floorJumped = true
+
 	if Input.is_action_just_pressed("ui_jump") and not is_on_floor() and nearWallChecker.is_colliding() and input != 0:
 		velocity.y = jump_power
 		velocity.x = wallJumpHorizontal
 	elif Input.is_action_just_pressed("ui_jump") and not is_on_floor() and doubleJump:
 		doubleJump = false
 		velocity.y = jump_power
+		floorJumped = true
 		
 		
 	if latestDirection == "right":
@@ -148,3 +152,31 @@ func animation() -> void:
 				animate.play("WalkRight")
 			"left":
 				animate.play("WalkLeft")
+	
+	if floorJumped:
+		if input == 0:
+			match latestDirection:
+				"right":
+					animate.play("JumpMiddleRight")
+				"left":
+					animate.play("JumpMiddleLeft")
+		else:
+			match latestDirection:
+				"right":
+					animate.play("JumpRight")
+				"left":
+					animate.play("JumpLeft")
+	
+	if !is_on_floor() and velocity.y > 0:
+		match latestDirection:
+			"right":
+				animate.play("FallingRight")
+			"left":
+				animate.play("FallingLeft")
+				
+	if !is_on_floor() and velocity.y < 0 and animate.current_animation != "JumpRight" and animate.current_animation != "JumpLeft" and animate.current_animation != "JumpMiddleLeft" and animate.current_animation != "JumpMiddleRight":
+		match latestDirection:
+			"right":
+				animate.play("FloatingRight")
+			"left":
+				animate.play("FloatingLeft")
