@@ -1317,7 +1317,7 @@ region = Rect2(0, 32, 16, 16)
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ni31j"]
 texture = ExtResource("7_ni31j")
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 2, 8, 2, 8, 8, -8, 8)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-7, 2, 7, 2, 7, 8, -7, 8)
 
 [sub_resource type="TileSet" id="TileSet_xlvrw"]
 physics_layer_0/collision_layer = 1
