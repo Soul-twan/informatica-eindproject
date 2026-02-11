@@ -18,7 +18,7 @@ func _ready() -> void:
 	failed = get_node("../../Camera/UnlockFailedHUD")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if InRange: 
 		
 		if Input.is_action_just_pressed("ui_pickup") and key.name in player.inventory:
@@ -32,13 +32,13 @@ func _process(delta: float) -> void:
 	if not door.visible:
 		door.collision_enabled = false
 
-func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite") and door.visible:
 		InRange = true
 		doorHUD.visible = true
 		textbg.visible = true
 
-func _on_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_body_shape_exited(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite") and door.visible:
 		InRange = false
 		doorHUD.visible = false
