@@ -7,15 +7,18 @@ var textbg
 var key
 var player
 var failed
+var openDoor
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	doorHUD = get_node("../../Camera/UnlockDoorHUD")
+	doorHUD = get_node("../../../Camera/UnlockDoorHUD")
 	door = get_parent()
-	textbg = get_node("../../Camera/Textbg")
-	key = get_node("../../Key")
-	player = get_node("../../Player")
-	failed = get_node("../../Camera/UnlockFailedHUD")
+	textbg = get_node("../../../Camera/Textbg")
+	key = get_node("../../../Key")
+	player = get_node("../../../Player")
+	failed = get_node("../../../Camera/UnlockFailedHUD")
+	openDoor = get_node("../../DoorOpen")
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -25,6 +28,7 @@ func _process(_delta: float) -> void:
 			doorHUD.visible = false
 			textbg.visible = false
 			door.visible = false
+			openDoor.visible = true
 		elif Input.is_action_just_pressed("ui_pickup") and key.name not in player.inventory:
 			doorHUD.visible = false
 			failed.visible = true
