@@ -13,7 +13,7 @@ func _ready() -> void:
 	doorHUD = get_node("../../Camera/UnlockDoorHUD")
 	door = get_parent()
 	textbg = get_node("../../Camera/Textbg")
-	key = get_node("../../ExampleItem")
+	key = get_node("../../Key")
 	player = get_node("../../Player")
 	failed = get_node("../../Camera/UnlockFailedHUD")
 

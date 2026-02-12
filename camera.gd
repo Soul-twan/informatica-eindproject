@@ -2,11 +2,18 @@ extends Camera2D
 
 var player
 var lookDistance
+var doubleUpgrade
+var singleUpgrade
+var dash
+var doubleJump
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player = get_node("../Player")
-
+	doubleUpgrade = get_node("HUDbg/HUDbgDoubleUpgrade")
+	singleUpgrade = get_node("HUDbg/HUDbgSingleUpgrade")
+	dash = get_node("HUDbg/DashHUD")
+	doubleJump = get_node("HUDbg/DoubleJumpHUD")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -39,3 +46,23 @@ func _process(_delta: float) -> void:
 		position.x -= positionDelta.x + boundingDistance.x
 	if positionDelta.x > boundingDistance.x:
 		position.x -= positionDelta.x - boundingDistance.x
+
+	if "DoubleJump" in player.inventory:
+		singleUpgrade.visible = false
+		doubleUpgrade.visible = true
+		doubleJump.visible = true
+		dash.visible = true		
+
+	elif "Dash" in player.inventory:
+		singleUpgrade.visible = true
+		dash.visible = true
+
+	if player.doubleJump == true:
+		doubleJump.frame = 0
+	else:
+		doubleJump.frame = 1
+		
+	if player.dashReady == true:
+		dash.frame = 0
+	else:
+		dash.frame = 1

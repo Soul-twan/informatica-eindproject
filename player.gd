@@ -49,10 +49,10 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_power
 		floorJumped = true
 
-	if Input.is_action_just_pressed("ui_jump") and not is_on_floor() and nearWallChecker.is_colliding() and input != 0:
+	if Input.is_action_just_pressed("ui_jump") and not is_on_floor() and nearWallChecker.is_colliding() and input != 0 and "WallJump" in inventory:
 		velocity.y = jump_power
 		velocity.x = wallJumpHorizontal
-	elif Input.is_action_just_pressed("ui_jump") and not is_on_floor() and doubleJump:
+	elif Input.is_action_just_pressed("ui_jump") and not is_on_floor() and doubleJump and "DoubleJump" in inventory:
 		doubleJump = false
 		velocity.y = jump_power
 		floorJumped = true
@@ -77,11 +77,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, fric)
 		
-	if (Input.is_action_just_pressed("ui_dash") or Input.is_action_just_pressed("ui_dash2")) and (input > 0) and dashReady:
+	if (Input.is_action_just_pressed("ui_dash") or Input.is_action_just_pressed("ui_dash2")) and (input > 0) and dashReady and "Dash" in inventory:
 		velocity.x += dashSpeed
 		dashReady = false
 		dashTimer.start()
-	elif (Input.is_action_just_pressed("ui_dash") or Input.is_action_just_pressed("ui_dash2")) and (input < 0) and dashReady:
+	elif (Input.is_action_just_pressed("ui_dash") or Input.is_action_just_pressed("ui_dash2")) and (input < 0) and dashReady and "Dash" in inventory:
 		velocity.x -= dashSpeed
 		dashReady = false
 		dashTimer.start()
