@@ -1704,7 +1704,7 @@ scale = Vector2(0.99999994, 0.99999994)
 script = ExtResource("27_xb05w")
 
 [node name="DoorCollision" type="CollisionShape2D" parent="Door/DoorClosed/DoorArea" unique_id=1245470155]
-position = Vector2(-231.59999, -33)
+position = Vector2(-226.00002, -33.600002)
 scale = Vector2(-0.9425211, 1)
 shape = SubResource("CapsuleShape2D_wncyr")
 
