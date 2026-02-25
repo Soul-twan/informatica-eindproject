@@ -46,7 +46,7 @@ func _physics_process(delta: float) -> void:
 		wallSlide = false
 	
 	if not is_on_floor() and not wallSlide: 
-		velocity += get_gravity() * 1.8 * delta
+		velocity += get_gravity() * 1.85 * delta
 	elif not is_on_floor() and wallSlide:
 		velocity += get_gravity() * 1.2 * delta
 		
