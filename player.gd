@@ -1,12 +1,13 @@
 extends CharacterBody2D
 
 const max_speed = 400.0
-const acc = 40
+const acc = 35
 const fric = 80
 const jump_power = -630.0
 const dashSpeed = 800.0
 
-var wallJumpHorizontal = 800
+var wallSlide
+var wallJumpHorizontal
 var doubleJump = true
 var dashReady = true
 
@@ -14,7 +15,6 @@ var hearts : Array[TextureRect]
 var health = 5
 var invincibility = false
 var input
-
 
 var latestDirection = "right"
 var floorJumped = false
@@ -40,9 +40,16 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	
-	if not is_on_floor():
-		velocity += get_gravity() * 2 * delta
-
+	if input != 0 and not is_on_floor() and nearWallChecker.is_colliding() and velocity.y > 0:
+		wallSlide = true
+	else: 
+		wallSlide = false
+	
+	if not is_on_floor() and not wallSlide: 
+		velocity += get_gravity() * 1.8 * delta
+	elif not is_on_floor() and wallSlide:
+		velocity += get_gravity() * 1.2 * delta
+		
 	floorJumped = false
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_jump") and is_on_floor():
@@ -60,10 +67,10 @@ func _physics_process(delta: float) -> void:
 		
 	if latestDirection == "right":
 		nearWallChecker.rotation = -90
-		wallJumpHorizontal = -800
+		wallJumpHorizontal = -780
 	elif latestDirection == "left":
 		nearWallChecker.rotation = 90
-		wallJumpHorizontal = 800
+		wallJumpHorizontal = 780
 		
 	if is_on_floor() and not doubleJump:
 		doubleJump = true
