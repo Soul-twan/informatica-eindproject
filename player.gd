@@ -29,6 +29,8 @@ var inventory = {
 @onready var dashTimer = $DashTimer
 @onready var nearWallChecker = $NearWallCheck
 @onready var animate = $AnimationPlayer
+@onready var dashEffects = $AnimationPlayer/DashEffects
+@onready var jumpEffects = $AnimationPlayer/JumpEffects
 
 func _ready() -> void:
 	var heartsBox = $"../Camera/HealthHUD/HBoxContainer"
@@ -63,6 +65,7 @@ func _physics_process(delta: float) -> void:
 		doubleJump = false
 		velocity.y = jump_power
 		floorJumped = true
+		jumpEffects.play("DoubleJump")
 		
 		
 	if latestDirection == "right":
@@ -88,10 +91,12 @@ func _physics_process(delta: float) -> void:
 		velocity.x += dashSpeed
 		dashReady = false
 		dashTimer.start()
+		dashEffects.play("DashRight")
 	elif (Input.is_action_just_pressed("ui_dash") or Input.is_action_just_pressed("ui_dash2")) and (input < 0) and dashReady and "Dash" in inventory:
 		velocity.x -= dashSpeed
 		dashReady = false
 		dashTimer.start()
+		dashEffects.play("DashLeft")
 		
 	animation()
 

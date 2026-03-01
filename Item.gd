@@ -10,10 +10,6 @@ func _ready() -> void:
 	pickupHUD =  get_node("../Camera/PickupHUD")
 	textBg = get_node("../Camera/Textbg")
 	player = get_node("../Player")
-	
-	item = self.name
-	if self.visible and self.name in player.inventory and player.inventory[item] == 1:
-		self.visible = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -25,6 +21,7 @@ func _process(_delta: float) -> void:
 				get_tree().change_scene_to_file('res://win.tscn')
 			else:
 				player.inventory[item] = 1
+				player.inventory[item + "ThisLoop"] = 1
 				pickupHUD.visible = false
 				textBg.visible = false
 				self.visible = false

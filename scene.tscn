@@ -6,8 +6,10 @@
 [ext_resource type="Script" uid="uid://qojlbjvpnxv4" path="res://camera.gd" id="3_3253y"]
 [ext_resource type="Texture2D" uid="uid://b071ttlo6dpy7" path="res://Player/idleRight.png" id="3_akxrc"]
 [ext_resource type="Texture2D" uid="uid://h470t7h42mqg" path="res://Player/idleLeft.png" id="3_gu47o"]
+[ext_resource type="Texture2D" uid="uid://ss4f5vt1lgnt" path="res://Player/dashEffect.png" id="3_jrtx1"]
 [ext_resource type="Texture2D" uid="uid://bre3gliv37in" path="res://Environment/environment.png" id="4_5c1cw"]
 [ext_resource type="Texture2D" uid="uid://bpr5wjpfl4osh" path="res://Player/fallingRight.png" id="4_aobyt"]
+[ext_resource type="Texture2D" uid="uid://r4756snm5e0r" path="res://Player/doubleJumpEffect.png" id="4_p7oqj"]
 [ext_resource type="Theme" uid="uid://bsyab1msaktvh" path="res://pixeFontTheme.tres" id="5_5juve"]
 [ext_resource type="Texture2D" uid="uid://nl30ugbs47j4" path="res://Player/floatingLeft.png" id="5_i6j5g"]
 [ext_resource type="Texture2D" uid="uid://chqmh24vlxw44" path="res://HUD/heartFull.png" id="5_m7jmp"]
@@ -248,10 +250,10 @@ tracks/3/path = NodePath("PlayerSprite:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.001, 0.125),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [0, 0, 1]
+"values": [0, 1]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -326,10 +328,10 @@ tracks/3/path = NodePath("PlayerSprite:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.001, 0.125),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [0, 0, 1]
+"values": [0, 1]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -985,7 +987,7 @@ tracks/0/path = NodePath("CollisionShape2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.001),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector2(1.5, 0)]
@@ -997,7 +999,7 @@ tracks/1/path = NodePath("CollisionShape2D:shape:size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.001),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector2(11.00001, 16)]
@@ -1222,6 +1224,186 @@ _data = {
 &"WalkRight": SubResource("Animation_o3hm7"),
 &"WallLeft": SubResource("Animation_pou65"),
 &"WallRight": SubResource("Animation_wncyr")
+}
+
+[sub_resource type="Animation" id="Animation_aobm4"]
+resource_name = "DashRight"
+length = 0.2857143
+step = 0.071428575
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../PlayerSprite/DashEffectLeft:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.071428575, 0.14285715, 0.21428573),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PlayerSprite/DashEffectLeft:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.21428572),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_jrtx1"]
+resource_name = "DashRight"
+length = 0.2857143
+step = 0.071428575
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../PlayerSprite/DashEffectRight:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.071428575, 0, 0.21428572),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PlayerSprite/DashEffectRight:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.071428575, 0.14285715, 0.21428573),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_p7oqj"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../PlayerSprite/DashEffectLeft:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PlayerSprite/DashEffectRight:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../PlayerSprite/DashEffectLeft:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../PlayerSprite/DashEffectRight:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aobm4"]
+_data = {
+&"DashLeft": SubResource("Animation_aobm4"),
+&"DashRight": SubResource("Animation_jrtx1"),
+&"RESET": SubResource("Animation_p7oqj")
+}
+
+[sub_resource type="Animation" id="Animation_arlik"]
+resource_name = "DoubleJump"
+length = 0.2857143
+step = 0.071428575
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../PlayerSprite/DoubleJumpEffect:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.071428575, 0.14285715, 0.21428572),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PlayerSprite/DoubleJumpEffect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2857143),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_ggkvc"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../PlayerSprite/DoubleJumpEffect:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0009999999),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../PlayerSprite/DoubleJumpEffect:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0009999999),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jipse"]
+_data = {
+&"DoubleJump": SubResource("Animation_arlik"),
+&"RESET": SubResource("Animation_ggkvc")
 }
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5c1cw"]
@@ -1585,7 +1767,7 @@ height = 82.399994
 script = ExtResource("1_u3cyc")
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=228986726]
-position = Vector2(600, 520)
+position = Vector2(595, 520.00006)
 scale = Vector2(5, 5)
 collision_mask = 11
 script = ExtResource("1_nxogm")
@@ -1610,8 +1792,36 @@ target_position = Vector2(0, 8.5)
 texture_filter = 1
 hframes = 3
 
+[node name="DashEffectLeft" type="Sprite2D" parent="Player/PlayerSprite" unique_id=1968169475]
+visible = false
+position = Vector2(12.000061, 0)
+scale = Vector2(-1, 1)
+texture = ExtResource("3_jrtx1")
+hframes = 4
+frame = 3
+
+[node name="DashEffectRight" type="Sprite2D" parent="Player/PlayerSprite" unique_id=2119153889]
+visible = false
+position = Vector2(-12, 0)
+texture = ExtResource("3_jrtx1")
+hframes = 4
+region_rect = Rect2(0, 0, 64, 16)
+
+[node name="DoubleJumpEffect" type="Sprite2D" parent="Player/PlayerSprite" unique_id=496097604]
+visible = false
+position = Vector2(0, 16)
+texture = ExtResource("4_p7oqj")
+hframes = 4
+frame = 3
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=192661330]
 libraries/ = SubResource("AnimationLibrary_17rhs")
+
+[node name="DashEffects" type="AnimationPlayer" parent="Player/AnimationPlayer" unique_id=1736005962]
+libraries/ = SubResource("AnimationLibrary_aobm4")
+
+[node name="JumpEffects" type="AnimationPlayer" parent="Player/AnimationPlayer" unique_id=32572702]
+libraries/ = SubResource("AnimationLibrary_jipse")
 
 [node name="Environment" type="TileMapLayer" parent="." unique_id=1055878315]
 z_index = -1
@@ -1632,9 +1842,10 @@ tile_set = SubResource("TileSet_g4bmd")
 
 [node name="Background" type="Sprite2D" parent="Environment" unique_id=1954998103]
 z_index = -5
-position = Vector2(284.0999, 224.9)
-scale = Vector2(0.6194531, 0.51236105)
+position = Vector2(264.3, 224.99997)
+scale = Vector2(2.0934374, 0.51236105)
 texture = ExtResource("24_x5hgh")
+hframes = 4
 
 [node name="GreenBackground" type="Sprite2D" parent="Environment" unique_id=540437108]
 z_index = -5
@@ -1858,7 +2069,7 @@ texture_filter = 1
 texture = ExtResource("9_fy5k1")
 
 [node name="WallJump" type="Area2D" parent="." unique_id=1107569567]
-position = Vector2(520, 520)
+position = Vector2(464.00006, 520.00006)
 scale = Vector2(5, 5)
 collision_layer = 2
 script = ExtResource("6_y2354")
