@@ -25,7 +25,6 @@ const emptyHeart = preload("res://HUD/heartEmpty.png")
 var inventory = {
 }
 
-var timer
 
 @onready var invincTimer = $InvincibilityTimer
 @onready var dashTimer = $DashTimer
@@ -36,7 +35,7 @@ var timer
 
 func _ready() -> void:
 	var heartsBox = $"../Camera/HealthHUD/HBoxContainer"
-	timer = $"../Timer"
+	var timer = $"../Timer"
 	for child in heartsBox.get_children():
 		hearts.append(child)
 		
