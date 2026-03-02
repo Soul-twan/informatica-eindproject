@@ -3,6 +3,9 @@ extends Node2D
 var timer
 var timerHUD
 var player
+var Dash
+var WallJump
+var DoubleJump
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,7 +16,10 @@ func _ready() -> void:
 	healthHUD.visible = true
 	var HUDbg = get_node("Camera/HUDbg")
 	HUDbg.visible = true
-
+	
+	
+	if Dash in player.inventory:
+		$Timer.wait_time = 30.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -29,6 +35,8 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_reset"):
 		player.inventory.clear()
 		loopReset()
+		
+		
 
 func _on_timer_timeout() -> void:
 	loopReset()

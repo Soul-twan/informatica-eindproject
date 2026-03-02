@@ -5,11 +5,13 @@ var textBg
 var player
 var inRange = false
 var item
+var timer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pickupHUD =  get_node("../Camera/PickupHUD")
 	textBg = get_node("../Camera/Textbg")
 	player = get_node("../Player")
+	timer = get_node("../Timer")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

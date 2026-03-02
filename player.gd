@@ -25,6 +25,8 @@ const emptyHeart = preload("res://HUD/heartEmpty.png")
 var inventory = {
 }
 
+var timer
+
 @onready var invincTimer = $InvincibilityTimer
 @onready var dashTimer = $DashTimer
 @onready var nearWallChecker = $NearWallCheck
@@ -34,10 +36,20 @@ var inventory = {
 
 func _ready() -> void:
 	var heartsBox = $"../Camera/HealthHUD/HBoxContainer"
+	timer = $"../Timer"
 	for child in heartsBox.get_children():
 		hearts.append(child)
 		
 	loadSave()
+	
+	if "Dash" in inventory and "WallJump" in inventory and "DoubleJump" in inventory:
+		timer.wait_time = 120
+	elif "Dash" in inventory and "WallJump" in inventory:
+		timer.wait_time = 70
+	elif "WallJump" in inventory:
+		timer.wait_time = 40
+	else:
+		timer.wait_time = 20
 
 func _physics_process(delta: float) -> void:
 	input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
