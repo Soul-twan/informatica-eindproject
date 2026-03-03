@@ -1382,7 +1382,7 @@ tracks/0/path = NodePath("../PlayerSprite/DoubleJumpEffect:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0009999999),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [3]
@@ -1394,7 +1394,7 @@ tracks/1/path = NodePath("../PlayerSprite/DoubleJumpEffect:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.0009999999),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
@@ -1811,9 +1811,11 @@ hframes = 4
 region_rect = Rect2(0, 0, 64, 16)
 
 [node name="DoubleJumpEffect" type="Sprite2D" parent="Player/PlayerSprite" unique_id=496097604]
+visible = false
 position = Vector2(0, 16)
 texture = ExtResource("4_p7oqj")
 hframes = 4
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=192661330]
 libraries/ = SubResource("AnimationLibrary_17rhs")
@@ -2153,6 +2155,7 @@ tile_set = SubResource("TileSet_xb05w")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1431518926]
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D/CollisionShape2D" unique_id=110980032]
+texture_filter = 1
 position = Vector2(-439, -1560)
 scale = Vector2(5, 5)
 texture = SubResource("CompressedTexture2D_p7oqj")
