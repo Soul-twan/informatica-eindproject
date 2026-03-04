@@ -23,7 +23,6 @@ func _process(_delta: float) -> void:
 				get_tree().change_scene_to_file('res://win.tscn')
 			else:
 				player.inventory[item] = 1
-				player.inventory[item + "ThisLoop"] = 1
 				pickupHUD.visible = false
 				textBg.visible = false
 				self.visible = false

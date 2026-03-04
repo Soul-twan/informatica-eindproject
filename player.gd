@@ -25,7 +25,6 @@ const emptyHeart = preload("res://HUD/heartEmpty.png")
 var inventory = {
 }
 
-
 @onready var invincTimer = $InvincibilityTimer
 @onready var dashTimer = $DashTimer
 @onready var nearWallChecker = $NearWallCheck
@@ -53,7 +52,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	
-	move(delta)
+	if "TutorialCompletion" in inventory:
+		move(delta)
 	
 	animation()
 
