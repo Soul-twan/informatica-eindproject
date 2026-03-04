@@ -53,6 +53,18 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	
+	move(delta)
+	
+	animation()
+
+	move_and_slide()
+	
+	for i in range(get_slide_collision_count()):
+		var collision = get_slide_collision(i)
+		if collision.get_collider().is_in_group("spikes"):
+			damage()
+	
+func move(delta):
 	if input != 0 and not is_on_floor() and nearWallChecker.is_colliding() and velocity.y > 0:
 		wallSlide = true
 	else: 
@@ -78,25 +90,8 @@ func _physics_process(delta: float) -> void:
 		floorJumped = true
 		jumpEffects.play("DoubleJump")
 		
-		
-	if latestDirection == "right":
-		nearWallChecker.rotation = -90
-		wallJumpHorizontal = -780
-	elif latestDirection == "left":
-		nearWallChecker.rotation = 90
-		wallJumpHorizontal = 780
-		
 	if is_on_floor() and not doubleJump:
 		doubleJump = true
-		
-	if input:
-		velocity.x = move_toward(velocity.x, input * max_speed, acc)
-		if input > 0:
-			latestDirection = "right"
-		elif input < 0:
-			latestDirection = "left"
-	else:
-		velocity.x = move_toward(velocity.x, 0, fric)
 		
 	if (Input.is_action_just_pressed("ui_dash") or Input.is_action_just_pressed("ui_dash2")) and (input > 0) and dashReady and "Dash" in inventory:
 		velocity.x += dashSpeed
@@ -109,18 +104,25 @@ func _physics_process(delta: float) -> void:
 		dashTimer.start()
 		dashEffects.play("DashLeft")
 		
-	animation()
-
-	move_and_slide()
+	if input:
+		velocity.x = move_toward(velocity.x, input * max_speed, acc)
+		if input > 0:
+			latestDirection = "right"
+		elif input < 0:
+			latestDirection = "left"
+	else:
+		velocity.x = move_toward(velocity.x, 0, fric)
 	
-	for i in range(get_slide_collision_count()):
-		var collision = get_slide_collision(i)
-		if collision.get_collider().is_in_group("spikes"):
-			damage()
+	if latestDirection == "right":
+		nearWallChecker.rotation = -90
+		wallJumpHorizontal = -780
+	elif latestDirection == "left":
+		nearWallChecker.rotation = 90
+		wallJumpHorizontal = 780
+
 	
 func _on_dash_timer_timeout() -> void:
 	dashReady = true
-
 	
 func damage():
 	if invincibility:
@@ -151,7 +153,6 @@ func loadSave():
 		
 		for thing in inventory:
 			inventory[thing] = int(inventory[thing])
-
 
 func _on_healing_pad_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 		var healingPad = get_node("../HealingPad")
