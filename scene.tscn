@@ -1723,6 +1723,24 @@ texture = ExtResource("6_xlvrw")
 [sub_resource type="TileSet" id="TileSet_fy5k1"]
 sources/0 = SubResource("TileSetAtlasSource_5juve")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_arlik"]
+texture = ExtResource("6_xlvrw")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ggkvc"]
+sources/0 = SubResource("TileSetAtlasSource_arlik")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7jmp"]
 radius = 14.799998
 
@@ -2029,6 +2047,41 @@ position = Vector2(-640, 280.0001)
 scale = Vector2(5, 5)
 tile_map_data = PackedByteArray("AAAAAAAAAAAAAAMAAAAPAAAAAAACAAIAAAABAAAAAAACAAEAAAAOAAAAAAAAAAIAAAACAAAAAAABAAIAAAADAAAAAAABAAIAAAAEAAAAAAABAAIAAAAFAAAAAAABAAIAAAAGAAAAAAABAAIAAAAHAAAAAAABAAIAAAAIAAAAAAABAAIAAAAJAAAAAAABAAIAAAAKAAAAAAABAAIAAAALAAAAAAABAAIAAAAMAAAAAAABAAIAAAANAAAAAAABAAIAAAA=")
 tile_set = SubResource("TileSet_fy5k1")
+
+[node name="TutorialHUDBottom" type="Label" parent="Camera" unique_id=106788636]
+visible = false
+z_index = 3
+texture_filter = 1
+offset_left = -640.0
+offset_top = 280.00012
+offset_right = 639.0001
+offset_bottom = 360.0001
+theme = ExtResource("5_5juve")
+horizontal_alignment = 1
+vertical_alignment = 1
+max_lines_visible = 2
+
+[node name="TutorialHUDTop" type="Label" parent="Camera" unique_id=1419318732]
+visible = false
+z_index = 3
+texture_filter = 1
+offset_left = -639.0
+offset_top = 200.00009
+offset_right = 640.0001
+offset_bottom = 280.0001
+theme = ExtResource("5_5juve")
+horizontal_alignment = 1
+vertical_alignment = 1
+max_lines_visible = 2
+
+[node name="TutorialBg" type="TileMapLayer" parent="Camera" unique_id=951068805]
+visible = false
+z_index = 2
+texture_filter = 1
+position = Vector2(0, 40)
+scale = Vector2(5, 5)
+tile_map_data = PackedByteArray("AAD4/wMAAAAAAAMAAAAHAAMAAAACAAIAAAAGAAIAAAAAAAIAAAAGAAMAAAABAAIAAFD5/wMAAAABAAIAAGAFAAIAAAABAAIAAAAEAAIAAAABAAIAAAADAAIAAAABAAIAAAACAAIAAAABAAIAAAABAAIAAAABAAIAAAAAAAIAAAABAAIAAAD//wIAAAABAAIAAAD+/wIAAAABAAIAAAD9/wIAAAABAAIAAAD8/wIAAAABAAIAAAD7/wIAAAABAAIAAAD6/wIAAAABAAIAAAD5/wIAAAACAAEAAAAFAAMAAAACAAMAAAAEAAMAAAACAAMAAAADAAMAAAACAAMAAAACAAMAAAACAAMAAAABAAMAAAACAAMAAAAAAAMAAAACAAMAAAD//wMAAAACAAMAAAD+/wMAAAACAAMAAAD9/wMAAAACAAMAAAD8/wMAAAACAAMAAAD7/wMAAAACAAMAAAD6/wMAAAACAAMAAAA=")
+tile_set = SubResource("TileSet_ggkvc")
 
 [node name="Timer" type="Timer" parent="." unique_id=842476024]
 wait_time = 10.0

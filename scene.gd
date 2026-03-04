@@ -7,6 +7,10 @@ var Dash
 var WallJump
 var DoubleJump
 
+const tutorialText = [
+	"Press \"e\"  to continue text boxes",
+]
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	timer = get_node("Timer")
@@ -17,6 +21,10 @@ func _ready() -> void:
 	var HUDbg = get_node("Camera/HUDbg")
 	HUDbg.visible = true
 	
+	var textBg = $Camera/Textbg
+	var tutorialBg = $Camera/TutorialBg
+	var tutorialHUDBottom = $Camera/TutorialHUDBottom
+	var tutorialHUDTop = $Camera/TutorialHUDTop
 	
 	if Dash in player.inventory:
 		timer.wait_time = 30.0
@@ -45,8 +53,6 @@ func _process(_delta: float) -> void:
 		
 	tutorial()
 	
-	if "TutorialCompletion" in player.inventory:
-		timer.start()
 
 func _on_timer_timeout() -> void:
 	loopReset()
@@ -63,9 +69,12 @@ func loopReset():
 	get_tree().reload_current_scene()
 	
 func tutorial():
-	player.inventory["TutorialCompletion"] = 1
 	if !"TutorialPart" in player.inventory:
-		player.inventory["TutorialPart"] = 1
+		player.inventory["TutorialPart"] = 0
+	
+	if Input.is_action_just_pressed("ui_pickup"):
+		player.inventory["TutorialPart"] += 1
+		
 	match player.inventory["TutorialPart"]:
 		0:
-			print("nothing")
+			pass
