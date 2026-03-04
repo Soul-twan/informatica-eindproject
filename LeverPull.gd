@@ -1,30 +1,32 @@
 extends Sprite2D
 
-var isPulled = []
 var inRange
 var openDoor
 var closeDoor
-
+var lever1
+var lever2
+var lever3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	openDoor = get_node("../../PuzzleDoor/DoorOpen")
 	closeDoor = get_node("../../PuzzleDoor/DoorClosed")
+	lever1 = get_node("../../Lever1/LeverS1")
+	lever2 = get_node("../../Lever2/LeverS2")
+	lever3 = get_node("../../Lever3/LeverS3")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
 	if inRange and Input.is_action_just_pressed("ui_pickup") and self.frame == 0:
 		self.frame = 1
-		isPulled.append(self.name)
 	elif inRange and Input.is_action_just_pressed("ui_pickup") and self.frame == 1:
 		self.frame = 0
-		isPulled.erase(self.name)
 		
-	if "LeverS1" in isPulled and "LeverS2" in isPulled and not "LeverS3" in isPulled:
+	if lever1.frame == 1 and lever2.frame == 1 and lever3.frame == 0:
 		openDoor.visible = true
 		closeDoor.visible = false
-	else:
+	else: 
 		openDoor.visible = false
 		closeDoor.visible = true
 
