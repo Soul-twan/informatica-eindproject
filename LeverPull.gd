@@ -1,31 +1,53 @@
-extends Area2D
-
+extends Sprite2D
 
 var isPulled = []
 var inRange
+var openDoor
+var closeDoor
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	openDoor = get_node("../../PuzzleDoor/DoorOpen")
+	closeDoor = get_node("../../Puzzle/DoorClosed")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if inRange and Input.is_action_just_pressed("ui_pickup"):
-		if $sprite2D.frame == 0:
-			$Sprite2D.frame = 1
-			isPulled.append(self.name)
-		elif $Sprite2D.frame == 1:
-			$Sprite2D.frame = 0
-			isPulled.erase(self.name)
+	
+	if inRange and Input.is_action_just_pressed("ui_pickup") and self.frame == 0:
+		self.frame = 1
+		isPulled.append(self.name)
+	elif inRange and Input.is_action_just_pressed("ui_pickup") and self.frame == 1:
+		self.frame = 0
+		isPulled.erase(self.name)
 		
-	if "Lever 1" in isPulled:
-		print(isPulled)
+	if "LeverS1" in isPulled and "LeverS2" in isPulled and not "LeverS3" in isPulled:
+		openDoor.visible = true
+		closeDoor.visible = false
+	else:
+		openDoor.visible = false
+		closeDoor.visible = true
 
-func _on_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
+func _on_lever_1_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite"):
 		inRange = true
 
-func _on_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	if body.has_node("PlayeSprite"):
+func _on_lever_1_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if body.has_node("PlayerSprite"):
+		inRange = false
+
+func _on_lever_2_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if body.has_node("PlayerSprite"):
+		inRange = true
+		
+func _on_lever_2_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if body.has_node("PlayerSprite"):
+		inRange = false
+		
+func _on_lever_3_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if body.has_node("PlayerSprite"):
+		inRange = true
+		
+func _on_lever_3_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if body.has_node("PlayerSprite"):
 		inRange = false
