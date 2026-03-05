@@ -43,11 +43,11 @@ func _ready() -> void:
 	if "Dash" in inventory and "WallJump" in inventory and "DoubleJump" in inventory:
 		timer.wait_time = 120
 	elif "Dash" in inventory and "WallJump" in inventory:
-		timer.wait_time = 70
+		timer.wait_time = 110
 	elif "WallJump" in inventory:
-		timer.wait_time = 40
+		timer.wait_time = 80
 	else:
-		timer.wait_time = 20
+		timer.wait_time = 30
 
 func _physics_process(delta: float) -> void:
 	input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
