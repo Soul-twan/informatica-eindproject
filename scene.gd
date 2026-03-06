@@ -11,9 +11,10 @@ var DoubleJump
 @onready var tutorialBg = $Camera/TutorialBg
 @onready var tutorialHUDBottom = $Camera/TutorialHUDBottom
 @onready var tutorialHUDTop = $Camera/TutorialHUDTop
+@onready var portrait = $Camera/Portrait
 
 const tutorialText = [
-	"Press \"e\"  to continue through text boxes",
+	"Press \"e\" to continue through text boxes",
 	"It seems I got myself stuck in a time loop.",
 	"I'll have to find time crystals to",
 	"recharge my time watch and get back", 
@@ -90,13 +91,24 @@ func tutorial():
 	if !"TutorialCompletion" in player.inventory:
 		match player.inventory["TutorialPart"]:
 			0:
+				tutorialHUDBottom.horizontal_alignment = 1
+				tutorialHUDBottom.size = Vector2(1280, 80)
+				tutorialHUDBottom.position = Vector2(-640, 280)
+				
 				textBg.visible = true
 				tutorialHUDBottom.visible = true
+				
 				tutorialHUDBottom.text = tutorialText[0]
 			1:
+				portrait.visible = true
 				textBg.visible = false
 				tutorialBg.visible = true
 				tutorialHUDTop.visible = true
+				
+				tutorialHUDBottom.horizontal_alignment = 0
+				tutorialHUDBottom.size = Vector2(1085, 80)
+				tutorialHUDBottom.position = Vector2(-445, 280)
+				
 				tutorialHUDTop.text = tutorialText[1]
 				tutorialHUDBottom.text = tutorialText[2]
 			2:
@@ -115,6 +127,7 @@ func tutorial():
 				tutorialHUDTop.text = tutorialText[11]
 				tutorialHUDBottom.text = tutorialText[12]
 			7:
+				portrait.visible = false
 				tutorialBg.visible = false
 				tutorialHUDTop.visible = false
 				tutorialHUDBottom.visible = false

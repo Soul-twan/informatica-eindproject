@@ -48,6 +48,8 @@ func _ready() -> void:
 		timer.wait_time = 80
 	else:
 		timer.wait_time = 30
+		
+	animate.play("IdleRight")
 
 func _physics_process(delta: float) -> void:
 	input = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
