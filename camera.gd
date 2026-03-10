@@ -6,6 +6,7 @@ var doubleUpgrade
 var singleUpgrade
 var dash
 var doubleJump
+var hasLooked = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,18 +24,22 @@ func _process(_delta: float) -> void:
 	
 	var boundingDistance = Vector2(120, 75)	
 	
-	if (Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down") or Input.is_action_just_released("ui_up") or Input.is_action_just_released("ui_down")):
+	if Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down") or Input.is_action_just_released("ui_up") or Input.is_action_just_released("ui_down"):
 		if Input.is_action_just_pressed("ui_up"):
 			lookDistance = Vector2(0, position.y).distance_to(Vector2(0, player.position.y))
 			position.y += lookDistance - 320
-		if Input.is_action_just_released("ui_up"):
+			hasLooked = true
+		if Input.is_action_just_released("ui_up") and hasLooked:
 			position.y -= lookDistance - 320
+			hasLooked = false
 
 		if Input.is_action_just_pressed("ui_down"):
 			lookDistance = Vector2(0, position.y).distance_to(Vector2(0, player.position.y))
 			position.y += lookDistance + 320
-		if Input.is_action_just_released("ui_down"):
+			hasLooked = true
+		if Input.is_action_just_released("ui_down") and hasLooked:
 			position.y -= lookDistance + 320
+			hasLooked = false
 
 	else:
 		if positionDelta.y < -boundingDistance.y:
