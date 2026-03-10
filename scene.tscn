@@ -2036,6 +2036,19 @@ text = "press \"e\" to pick up"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CollectedHUD" type="Label" parent="Camera" unique_id=680736607]
+visible = false
+z_index = 3
+offset_left = -640.0
+offset_top = 280.0001
+offset_right = 640.0001
+offset_bottom = 360.0001
+theme = ExtResource("5_5juve")
+theme_override_font_sizes/font_size = 32
+text = "Null"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="UnlockDoorHUD" type="Label" parent="Camera" unique_id=1860970785]
 visible = false
 z_index = 3
@@ -2311,6 +2324,10 @@ script = ExtResource("43_arlik")
 position = Vector2(-439, -1558)
 shape = SubResource("RectangleShape2D_jipse")
 
+[node name="PickUpTimer" type="Timer" parent="." unique_id=736295821]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="timeout" from="Player/InvincibilityTimer" to="Player" method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="Player/DashTimer" to="Player" method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
@@ -2333,3 +2350,6 @@ shape = SubResource("RectangleShape2D_jipse")
 [connection signal="body_shape_exited" from="Lever2" to="Lever2/LeverS2" method="_on_lever_2_body_shape_exited"]
 [connection signal="body_shape_entered" from="Lever3" to="Lever3/LeverS3" method="_on_lever_3_body_shape_entered"]
 [connection signal="body_shape_exited" from="Lever3" to="Lever3/LeverS3" method="_on_lever_3_body_shape_exited"]
+[connection signal="timeout" from="PickUpTimer" to="DoubleJump" method="_on_pick_up_timer_timeout"]
+[connection signal="timeout" from="PickUpTimer" to="Dash" method="_on_pick_up_timer_timeout"]
+[connection signal="timeout" from="PickUpTimer" to="WallJump" method="_on_pick_up_timer_timeout"]

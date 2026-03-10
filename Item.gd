@@ -6,16 +6,29 @@ var player
 var inRange = false
 var item
 var timer
+var pickupTimer
+var PickedUp
+var CollectedHUD
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pickupHUD =  get_node("../Camera/PickupHUD")
 	textBg = get_node("../Camera/Textbg")
 	player = get_node("../Player")
 	timer = get_node("../Timer")
+	pickupTimer = get_node("../PickUpTimer")
+	CollectedHUD = get_node("../Camera/CollectedHUD")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	item = self.name
+	
+	if item == "DoubleJump":
+		PickedUp = "Double Jump"
+	elif item == "Dash":
+		PickedUp = "Dash"
+	elif item == "WallJump":
+		PickedUp = "Wall Jump"
 
 	if inRange:
 		if Input.is_action_just_pressed("ui_pickup"):
@@ -24,8 +37,10 @@ func _process(_delta: float) -> void:
 			else:
 				player.inventory[item] = 1
 				pickupHUD.visible = false
-				textBg.visible = false
 				self.visible = false
+				CollectedHUD.text = PickedUp + " has been added to your inventory!"
+				CollectedHUD.visible = true
+				pickupTimer.start()
 
 func _on_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite") and self.visible:
@@ -38,3 +53,10 @@ func _on_body_shape_exited(_body_rid: RID, body: Node2D, _body_shape_index: int,
 		pickupHUD.visible = false
 		textBg.visible = false
 		inRange = false
+		
+		
+
+
+func _on_pick_up_timer_timeout() -> void:
+	textBg.visible = false
+	CollectedHUD.visible = false
