@@ -30,14 +30,11 @@ func _process(_delta: float) -> void:
 	elif item == "WallJump":
 		PickedUp = "Wall Jump"
 
-	if inRange:
+	if inRange and self.visible:
 		if Input.is_action_just_pressed("ui_pickup"):
 			if item == "TimeCrystal":
 				get_tree().change_scene_to_file('res://win.tscn')
 			else:
-				player.inventory[item] = 1
-				pickupHUD.visible = false
-				self.visible = false
 				if (item == "WallJump" or item == "DoubleJump" or item == "Dash") and not item in player.inventory:
 					CollectedHUD.text = PickedUp + " has been added to your inventory!"
 					CollectedHUD.visible = true
@@ -48,6 +45,10 @@ func _process(_delta: float) -> void:
 					pickupTimer.start()
 				else: 
 					textBg.visible = false
+				player.inventory[item] = 1
+				pickupHUD.visible = false
+				self.visible = false
+
 
 func _on_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite") and self.visible:
