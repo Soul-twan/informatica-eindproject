@@ -38,9 +38,16 @@ func _process(_delta: float) -> void:
 				player.inventory[item] = 1
 				pickupHUD.visible = false
 				self.visible = false
-				CollectedHUD.text = PickedUp + " has been added to your inventory!"
-				CollectedHUD.visible = true
-				pickupTimer.start()
+				if (item == "WallJump" or item == "DoubleJump" or item == "Dash") and not item in player.inventory:
+					CollectedHUD.text = PickedUp + " has been added to your inventory!"
+					CollectedHUD.visible = true
+					pickupTimer.start()
+				elif (item == "WallJump" or item == "DoubleJump" or item == "Dash") and item in player.inventory:
+					CollectedHUD.text = PickedUp + " was already collected."
+					CollectedHUD.visible = true
+					pickupTimer.start()
+				else: 
+					textBg.visible = false
 
 func _on_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite") and self.visible:
@@ -51,12 +58,10 @@ func _on_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int
 func _on_body_shape_exited(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite"):
 		pickupHUD.visible = false
-		textBg.visible = false
+		if self.visible: 		
+			textBg.visible = false
 		inRange = false
 		
-		
-
-
 func _on_pick_up_timer_timeout() -> void:
 	textBg.visible = false
 	CollectedHUD.visible = false
