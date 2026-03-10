@@ -2049,6 +2049,19 @@ text = "Null"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="LeverHUD" type="Label" parent="Camera" unique_id=516817225]
+visible = false
+z_index = 3
+offset_left = -640.0
+offset_top = 280.0001
+offset_right = 640.0001
+offset_bottom = 360.0001
+theme = ExtResource("5_5juve")
+theme_override_font_sizes/font_size = 32
+text = "Press \"E\" to pull lever"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="UnlockDoorHUD" type="Label" parent="Camera" unique_id=1860970785]
 visible = false
 z_index = 3
