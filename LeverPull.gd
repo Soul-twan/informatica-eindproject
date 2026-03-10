@@ -20,7 +20,7 @@ func _ready() -> void:
 	LeverHUD = get_node("../../Camera/LeverHUD")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	if inRange and Input.is_action_just_pressed("ui_pickup") and self.frame == 0:
 		self.frame = 1
@@ -34,37 +34,37 @@ func _process(delta: float) -> void:
 		openDoor.visible = false
 		closeDoor.visible = true
 
-func _on_lever_1_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_lever_1_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite"):
 		inRange = true
 		textBg.visible = true
 		LeverHUD.visible = true
 
-func _on_lever_1_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_lever_1_body_shape_exited(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite"):
 		inRange = false
 		textBg.visible = false
 		LeverHUD.visible = false
 		
-func _on_lever_2_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_lever_2_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite"):
 		inRange = true
 		textBg.visible = true
 		LeverHUD.visible = true
 		
-func _on_lever_2_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_lever_2_body_shape_exited(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite"):
 		inRange = false
 		textBg.visible = false
 		LeverHUD.visible = false
 		
-func _on_lever_3_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_lever_3_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite"):
 		inRange = true
 		textBg.visible = true
 		LeverHUD.visible = true
 		
-func _on_lever_3_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+func _on_lever_3_body_shape_exited(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite"):
 		inRange = false
 		textBg.visible = false
