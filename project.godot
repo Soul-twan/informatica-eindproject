@@ -13,7 +13,8 @@ config_version=5
 config/name="Informatica eindproject"
 run/main_scene="res://scene.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://c6ehtlqqyxeqn"
+config/windows_native_icon="res://GameIcon.ico"
 
 [display]
 

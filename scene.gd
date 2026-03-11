@@ -47,8 +47,11 @@ func _ready() -> void:
 	# Starts the timer if the player has completed the tutorial
 	if "TutorialCompletion" in player.inventory:
 		timer.start()
-		
+	
 func _process(_delta: float) -> void:
+	# Changes the name of the game window
+	DisplayServer.window_set_title("Time Troubles")
+	
 	# Resets the level if the player dies
 	if player.health == 0:
 		loopReset()
