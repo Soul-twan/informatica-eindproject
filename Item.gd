@@ -29,17 +29,19 @@ func _process(_delta: float) -> void:
 		PickedUp = "Dash"
 	elif item == "WallJump":
 		PickedUp = "Wall Jump"
+	elif item == "Key":
+		PickedUp = "Key"
 
 	if inRange and self.visible:
 		if Input.is_action_just_pressed("ui_pickup"):
 			if item == "TimeCrystal":
 				get_tree().change_scene_to_file('res://win.tscn')
 			else:
-				if (item == "WallJump" or item == "DoubleJump" or item == "Dash") and not item in player.inventory:
+				if (item == "WallJump" or item == "DoubleJump" or item == "Dash" or item == "Key") and not item in player.inventory:
 					CollectedHUD.text = PickedUp + " has been added to your inventory!"
 					CollectedHUD.visible = true
 					pickupTimer.start()
-				elif (item == "WallJump" or item == "DoubleJump" or item == "Dash") and item in player.inventory:
+				elif (item == "WallJump" or item == "DoubleJump" or item == "Dash" or item == "Key") and item in player.inventory:
 					CollectedHUD.text = PickedUp + " was already collected."
 					CollectedHUD.visible = true
 					pickupTimer.start()
