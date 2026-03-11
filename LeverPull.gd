@@ -1,5 +1,7 @@
 extends Sprite2D
 
+
+#variables
 var inRange
 var openDoor
 var closeDoor
@@ -9,7 +11,7 @@ var lever3
 var textBg
 var LeverHUD
 
-# Called when the node enters the scene tree for the first time.
+#saves all needed nodes in a variable
 func _ready() -> void:
 	openDoor = get_node("../../PuzzleDoor/DoorOpen")
 	closeDoor = get_node("../../PuzzleDoor/DoorClosed")
@@ -19,7 +21,9 @@ func _ready() -> void:
 	textBg = get_node("../../Camera/Textbg")
 	LeverHUD = get_node("../../Camera/LeverHUD")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
+
+#checks interaction with the levers and changes the textures
 func _process(_delta: float) -> void:
 	
 	if inRange and Input.is_action_just_pressed("ui_pickup") and self.frame == 0:
@@ -33,6 +37,10 @@ func _process(_delta: float) -> void:
 	else: 
 		openDoor.visible = false
 		closeDoor.visible = true
+
+
+# all the next functions check when the player has entered and left the levery bodyshapes
+# then it changes the visibility of the 'interact' ui and makes the player able to interact with the levers
 
 func _on_lever_1_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite"):

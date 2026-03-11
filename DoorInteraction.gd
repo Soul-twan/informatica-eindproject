@@ -1,5 +1,6 @@
 extends Area2D
 
+#variables
 var doorHUD
 var InRange = false
 var door
@@ -9,7 +10,7 @@ var player
 var failed
 var openDoor
 
-# Called when the node enters the scene tree for the first time.
+#saves all needed nodes in a variable
 func _ready() -> void:
 	doorHUD = get_node("../../../Camera/UnlockDoorHUD")
 	door = get_parent()
@@ -20,8 +21,10 @@ func _ready() -> void:
 	openDoor = get_node("../../DoorOpen")
 	
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(_delta: float) -> void:
+	
+	# changes the needed uis visibility when trying to open the door
 	if InRange: 
 		
 		if Input.is_action_just_pressed("ui_pickup") and key.name in player.inventory:
@@ -36,6 +39,8 @@ func _process(_delta: float) -> void:
 	if not door.visible:
 		door.collision_enabled = false
 
+
+# changes the uis visibility based on whether the player has entered or left the collision of the door
 func _on_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite") and door.visible:
 		InRange = true

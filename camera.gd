@@ -1,5 +1,6 @@
 extends Camera2D
 
+#variables
 var player
 var lookDistance
 var doubleUpgrade
@@ -8,7 +9,7 @@ var dash
 var doubleJump
 var hasLooked = false
 
-# Called when the node enters the scene tree for the first time.
+# gets all needed nodes and saves them to a variable
 func _ready() -> void:
 	player = get_node("../Player")
 	doubleUpgrade = get_node("HUDbg/HUDbgDoubleUpgrade")
@@ -16,8 +17,10 @@ func _ready() -> void:
 	dash = get_node("HUDbg/DashHUD")
 	doubleJump = get_node("HUDbg/DoubleJumpHUD")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(_delta: float) -> void:
+	
+	# from here on (to the next comments) controls the camera to move with the player
 	var positionDelta = Vector2(0,0) 
 	positionDelta = position - player.position
 	positionDelta.y += 85
@@ -52,6 +55,8 @@ func _process(_delta: float) -> void:
 	if positionDelta.x > boundingDistance.x:
 		position.x -= positionDelta.x - boundingDistance.x
 
+
+	# changes the visibility of the uis based on whether the player has collected a specific item (e.g. doubleJump)
 	if "DoubleJump" in player.inventory:
 		singleUpgrade.visible = false
 		doubleUpgrade.visible = true

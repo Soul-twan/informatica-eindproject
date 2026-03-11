@@ -1,5 +1,6 @@
 extends Area2D
 
+#variables
 var pickupHUD
 var textBg
 var player
@@ -10,7 +11,7 @@ var pickupTimer
 var PickedUp
 var CollectedHUD
 
-# Called when the node enters the scene tree for the first time.
+# saves all needed nodes in a variable
 func _ready() -> void:
 	pickupHUD =  get_node("../Camera/PickupHUD")
 	textBg = get_node("../Camera/Textbg")
@@ -19,10 +20,11 @@ func _ready() -> void:
 	pickupTimer = get_node("../PickUpTimer")
 	CollectedHUD = get_node("../Camera/CollectedHUD")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(_delta: float) -> void:
 	item = self.name
 	
+	# changes the value of the variable 'PickedUp' based on the item that is being picked up
 	if item == "DoubleJump":
 		PickedUp = "Double Jump"
 	elif item == "Dash":
@@ -32,6 +34,11 @@ func _process(_delta: float) -> void:
 	elif item == "Key":
 		PickedUp = "Key"
 
+	# first checks which item is being collected
+	# then changes the right uis visibilities based on whether the item was already in the inventory
+	# adds the item to the player's inventory
+	
+	# if the item is the final time crystal, the scene changes to the win scene
 	if inRange and self.visible:
 		if Input.is_action_just_pressed("ui_pickup"):
 			if item == "TimeCrystal":
@@ -51,7 +58,7 @@ func _process(_delta: float) -> void:
 				pickupHUD.visible = false
 				self.visible = false
 
-
+# next functions change the uis based on whether the player has entered or left the item's collision shape
 func _on_body_shape_entered(_body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
 	if body.has_node("PlayerSprite") and self.visible:
 		pickupHUD.visible = true
@@ -64,7 +71,9 @@ func _on_body_shape_exited(_body_rid: RID, body: Node2D, _body_shape_index: int,
 		if self.visible: 		
 			textBg.visible = false
 		inRange = false
-		
+
+# changes the visibility of the uis after the pickup timer has expired
+# happens so the ui doesn't stay on the screen forever		
 func _on_pick_up_timer_timeout() -> void:
 	textBg.visible = false
 	CollectedHUD.visible = false
