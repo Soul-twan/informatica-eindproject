@@ -6,12 +6,14 @@ var player
 var Dash
 var WallJump
 var DoubleJump
+var resetting
 
 @onready var textBg = $Camera/Textbg
 @onready var tutorialBg = $Camera/TutorialBg
 @onready var tutorialHUDBottom = $Camera/TutorialHUDBottom
 @onready var tutorialHUDTop = $Camera/TutorialHUDTop
 @onready var portrait = $Camera/Portrait
+@onready var music = $BackgroundMusic
 
 const tutorialText = [
 	"Press \"e\" to continue through text boxes",
@@ -39,9 +41,6 @@ func _ready() -> void:
 	var HUDbg = get_node("Camera/HUDbg")
 	HUDbg.visible = true
 	
-	if Dash in player.inventory:
-		timer.wait_time = 30.0
-
 	if "TutorialCompletion" in player.inventory:
 		timer.start()
 		
@@ -65,6 +64,7 @@ func _process(_delta: float) -> void:
 		loopReset()
 		
 	tutorial()
+	backgroundMusic()
 
 func _on_timer_timeout() -> void:
 	loopReset()
@@ -77,8 +77,24 @@ func save():
 	saveFile.close()
 
 func loopReset():
+	resetting = true
+	music.stop()
 	save()
 	get_tree().reload_current_scene()
+	
+func backgroundMusic():
+	if !music.playing and!resetting:
+		if !"TutorialCompletion" in player.inventory:
+			music.stream = load("res://Music/fullSong.mp3")
+		elif "Dash" in player.inventory and "WallJump" in player.inventory and "DoubleJump" in player.inventory:
+			music.stream = load("res://Music/120sec.mp3")
+		elif "Dash" in player.inventory and "WallJump" in player.inventory:
+			music.stream = load("res://Music/110sec.mp3")
+		elif "WallJump" in player.inventory:
+			music.stream = load("res://Music/80sec.mp3")
+		else:
+			music.stream = load("res://Music/30sec.mp3")
+		music.play()
 	
 func tutorial():
 	if !"TutorialPart" in player.inventory:

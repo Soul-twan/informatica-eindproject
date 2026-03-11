@@ -45,6 +45,7 @@
 [ext_resource type="Texture2D" uid="uid://bm8turopy05od" path="res://Player/portrait.PNG" id="36_ggkvc"]
 [ext_resource type="Script" uid="uid://ctqud3xd7v4ck" path="res://LeverPull.gd" id="43_arlik"]
 [ext_resource type="Texture2D" uid="uid://bnajwao1k55aq" path="res://Environment/lever.png" id="44_ggkvc"]
+[ext_resource type="AudioStream" uid="uid://ds07o16vafe48" path="res://Music/30sec.mp3" id="46_jipse"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m7jmp"]
 size = Vector2(9.000008, 16)
@@ -2344,6 +2345,10 @@ shape = SubResource("RectangleShape2D_jipse")
 [node name="PickUpTimer" type="Timer" parent="." unique_id=736295821]
 wait_time = 2.0
 one_shot = true
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=219543502]
+stream = ExtResource("46_jipse")
+volume_db = -10.0
 
 [connection signal="timeout" from="Player/InvincibilityTimer" to="Player" method="_on_invincibility_timer_timeout"]
 [connection signal="timeout" from="Player/DashTimer" to="Player" method="_on_dash_timer_timeout"]
