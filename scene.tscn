@@ -2037,7 +2037,7 @@ offset_right = 640.0001
 offset_bottom = 360.0001
 theme = ExtResource("5_5juve")
 theme_override_font_sizes/font_size = 32
-text = "press \"e\" to pick up"
+text = "Press \"e\" to pick up"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -2063,7 +2063,7 @@ offset_right = 640.0001
 offset_bottom = 360.0001
 theme = ExtResource("5_5juve")
 theme_override_font_sizes/font_size = 32
-text = "Press \"E\" to pull lever"
+text = "Press \"e\" to pull lever"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -2076,7 +2076,7 @@ offset_right = 640.0001
 offset_bottom = 360.0001
 theme = ExtResource("5_5juve")
 theme_override_font_sizes/font_size = 32
-text = "press \"e\" to open door"
+text = "Press \"e\" to open door"
 horizontal_alignment = 1
 vertical_alignment = 1
 

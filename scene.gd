@@ -1,5 +1,6 @@
 extends Node2D
 
+# Variables
 var timer
 var timerHUD
 var player
@@ -8,6 +9,7 @@ var WallJump
 var DoubleJump
 var resetting
 
+# Saves nodes into variables
 @onready var textBg = $Camera/Textbg
 @onready var tutorialBg = $Camera/TutorialBg
 @onready var tutorialHUDBottom = $Camera/TutorialHUDBottom
@@ -15,6 +17,7 @@ var resetting
 @onready var portrait = $Camera/Portrait
 @onready var music = $BackgroundMusic
 
+# Static variable
 const tutorialText = [
 	"Press \"e\" to continue through text boxes",
 	"It seems I got myself stuck in a time loop.",
@@ -31,8 +34,8 @@ const tutorialText = [
 	""
 ]
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Saves nodes into variables and changes visibility
 	timer = get_node("Timer")
 	timerHUD = get_node("Camera/TimerHUD")
 	player = get_node("Player")
@@ -41,14 +44,16 @@ func _ready() -> void:
 	var HUDbg = get_node("Camera/HUDbg")
 	HUDbg.visible = true
 	
+	# Starts the timer if the player has completed the tutorial
 	if "TutorialCompletion" in player.inventory:
 		timer.start()
 		
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	# Resets the level if the player dies
 	if player.health == 0:
 		loopReset()
 
+	# Displays the time left in the current loop
 	var displayTime = timer.wait_time
 	if !timer.is_stopped():
 		displayTime = int(timer.get_time_left())
@@ -59,6 +64,7 @@ func _process(_delta: float) -> void:
 	var remainingTime = str(floor(int(displayTime / 60))) + ":" + str(secondsDisplay)
 	timerHUD.set_text(str(remainingTime))
 	
+	# Resets the game upon pressing backspace
 	if Input.is_action_just_pressed("ui_reset"):
 		player.inventory.clear()
 		loopReset()
@@ -66,9 +72,11 @@ func _process(_delta: float) -> void:
 	tutorial()
 	backgroundMusic()
 
+# Resets the level when the timer runs out
 func _on_timer_timeout() -> void:
 	loopReset()
 
+# Saves the current inevntory to a file
 func save():
 	var saveFile = FileAccess.open("user://save.txt", FileAccess.WRITE)
 	var jsonString = JSON.stringify(player.inventory)
@@ -76,12 +84,14 @@ func save():
 	saveFile.store_line(jsonString)
 	saveFile.close()
 
+# Resets the level with some necessary precautions
 func loopReset():
 	resetting = true
 	music.stop()
 	save()
 	get_tree().reload_current_scene()
 	
+# Plays music based on the items in the inventory
 func backgroundMusic():
 	if !music.playing and!resetting:
 		if !"TutorialCompletion" in player.inventory:
@@ -95,7 +105,9 @@ func backgroundMusic():
 		else:
 			music.stream = load("res://Music/30sec.mp3")
 		music.play()
-	
+
+# Plays a tutorial if it hasn't been completed
+# Changes HUD visibility and text when required
 func tutorial():
 	if !"TutorialPart" in player.inventory:
 		player.inventory["TutorialPart"] = 0
